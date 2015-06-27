@@ -23,13 +23,9 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     UINavigationController *navVC = [[UINavigationController alloc] init];
-    if (![DataSource sharedInstance].accessToken) {
-        LoginViewController *loginVC = [[LoginViewController alloc] init];
-        [navVC setViewControllers:@[loginVC] animated:YES];
-    } else {
-        QuestionsTableViewController *questionsVC = [[QuestionsTableViewController alloc] init];
-        [navVC setViewControllers:@[questionsVC] animated:YES];
-    }
+    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    [navVC setViewControllers:@[loginVC] animated:YES];
+    
     navVC.navigationBarHidden = YES;
     self.window.rootViewController = navVC;
     self.window.backgroundColor = [UIColor colorWithRed:0.1 green:0.55 blue:0.69 alpha:1];

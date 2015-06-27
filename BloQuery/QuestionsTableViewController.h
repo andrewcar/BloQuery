@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ParseUI/ParseUIConstants.h>
 
-@interface QuestionsTableViewController : UITableViewController
+@class QuestionTableViewCell, BFTask, PFObject, PFQuery;
+
+@interface QuestionsTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, strong) UITextView *composeTextView;
 
 @end

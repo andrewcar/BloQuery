@@ -28,7 +28,6 @@
 @property (nonatomic, strong) UILabel *requirementsLabel2;
 @property (nonatomic, strong) UILabel *requirementsLabel3;
 @property (nonatomic, strong) UILabel *requirementsLabel4;
-@property (nonatomic, strong) UILabel *requirementsLabel5;
 
 @end
 
@@ -223,7 +222,6 @@
             [self.signUpButton setTitle:@"sign up" forState:UIControlStateNormal];
         }];
     } else if (sender.tag == 2222) {
-        NSLog(@"pressed sign up");
         [self animateSignUpButtonPress];
         
         if (self.passwordField.text.length != 0) {
@@ -251,47 +249,40 @@
                         [self.view addSubview:self.requirementsView];
                     } completion:^(BOOL finished) {
                         self.requirementsTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.requirementsView.frame) + 20, CGRectGetMinY(self.requirementsView.frame) + 25, CGRectGetWidth(self.requirementsView.frame) - 40, 42)];
-                        self.requirementsTitleLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:34];
-                        self.requirementsTitleLabel.text = @"requirements";
+                        self.requirementsTitleLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:35];
+                        self.requirementsTitleLabel.text = @"do this";
                         self.requirementsTitleLabel.textAlignment = NSTextAlignmentCenter;
                         self.requirementsTitleLabel.textColor = [UIColor whiteColor];
                         
                         self.requirementsLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.requirementsView.frame) + 25, CGRectGetMaxY(self.requirementsTitleLabel.frame) + 40, CGRectGetWidth(self.requirementsTitleLabel.frame), CGRectGetHeight(self.requirementsTitleLabel.frame))];
-                        self.requirementsLabel1.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:17];
-                        self.requirementsLabel1.text = @"at least six characters";
+                        self.requirementsLabel1.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:16];
+                        self.requirementsLabel1.text = @"6 - 20 characters";
                         self.requirementsLabel1.textAlignment = NSTextAlignmentLeft;
                         self.requirementsLabel1.textColor = [UIColor whiteColor];
                         
                         self.requirementsLabel2 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.requirementsView.frame) + 25, CGRectGetMaxY(self.requirementsLabel1.frame), CGRectGetWidth(self.requirementsTitleLabel.frame), CGRectGetHeight(self.requirementsTitleLabel.frame))];
-                        self.requirementsLabel2.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:17];
-                        self.requirementsLabel2.text = @"less than twenty-one characters";
+                        self.requirementsLabel2.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:16];
+                        self.requirementsLabel2.text = @"1 letter, number and special character";
                         self.requirementsLabel2.textAlignment = NSTextAlignmentLeft;
                         self.requirementsLabel2.textColor = [UIColor whiteColor];
                         
                         self.requirementsLabel3 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.requirementsView.frame) + 25, CGRectGetMaxY(self.requirementsLabel2.frame), CGRectGetWidth(self.requirementsTitleLabel.frame), CGRectGetHeight(self.requirementsTitleLabel.frame))];
-                        self.requirementsLabel3.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:17];
-                        self.requirementsLabel3.text = @"one letter";
+                        self.requirementsLabel3.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:16];
+                        self.requirementsLabel3.text = @"we support these guys:";
                         self.requirementsLabel3.textAlignment = NSTextAlignmentLeft;
                         self.requirementsLabel3.textColor = [UIColor whiteColor];
                         
                         self.requirementsLabel4 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.requirementsView.frame) + 25, CGRectGetMaxY(self.requirementsLabel3.frame), CGRectGetWidth(self.requirementsTitleLabel.frame), CGRectGetHeight(self.requirementsTitleLabel.frame))];
                         self.requirementsLabel4.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:17];
-                        self.requirementsLabel4.text = @"one number";
+                        self.requirementsLabel4.text = @"~`!@#$%^&*()_-+=,.?;:'<>";
                         self.requirementsLabel4.textAlignment = NSTextAlignmentLeft;
                         self.requirementsLabel4.textColor = [UIColor whiteColor];
-                        
-                        self.requirementsLabel5 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.requirementsView.frame) + 25, CGRectGetMaxY(self.requirementsLabel4.frame), CGRectGetWidth(self.requirementsTitleLabel.frame), CGRectGetHeight(self.requirementsTitleLabel.frame))];
-                        self.requirementsLabel5.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:17];
-                        self.requirementsLabel5.text = @"one allowed special character";
-                        self.requirementsLabel5.textAlignment = NSTextAlignmentLeft;
-                        self.requirementsLabel5.textColor = [UIColor whiteColor];
                         
                         [self.view addSubview:self.requirementsTitleLabel];
                         [self.view addSubview:self.requirementsLabel1];
                         [self.view addSubview:self.requirementsLabel2];
                         [self.view addSubview:self.requirementsLabel3];
                         [self.view addSubview:self.requirementsLabel4];
-                        [self.view addSubview:self.requirementsLabel5];
                     }];
                 }
             }
@@ -303,18 +294,14 @@
     sender.tag = 3333;
     [self animateLogInButtonPress];
     [self logIn];
-    NSLog(@"log in button pressed");
 }
 
 - (void)animateSignUpButtonPress {
     [UIView animateWithDuration:.1 animations:^{
         self.signUpButton.backgroundColor = [UIColor colorWithRed:0.889 green:0.199 blue:0.333 alpha:1];
-//        self.signUpButton.backgroundColor = [UIColor colorWithRed:.1 green:.6 blue:.79 alpha:1];
         self.signUpButton.frame = CGRectMake(CGRectGetMinX(self.passwordField.frame) - 21, CGRectGetMaxY(self.passwordField.frame) + 54, CGRectGetWidth(self.view.frame) * 0.43, 58);
     }];
     [UIView animateWithDuration:.42 animations:^{
-        self.signUpButton.backgroundColor = [UIColor colorWithRed:0.889 green:0.199 blue:0.333 alpha:1];
-//        self.signUpButton.backgroundColor = [UIColor colorWithRed:.1 green:.55 blue:.79 alpha:1];
         self.signUpButton.frame = CGRectMake(CGRectGetMinX(self.passwordField.frame), CGRectGetMaxY(self.passwordField.frame) + 62, CGRectGetWidth(self.view.frame) * 0.33, 42);
     }];
 }
@@ -326,7 +313,6 @@
     }];
     [UIView animateWithDuration:.42 animations:^{
         self.logInButton.frame = CGRectMake(CGRectGetMaxX(self.passwordField.frame) - (CGRectGetWidth(self.view.frame) * 0.33), CGRectGetMaxY(self.passwordField.frame) + 62, CGRectGetWidth(self.view.frame) * 0.33, 42);
-        self.logInButton.backgroundColor = [UIColor colorWithRed:0.889 green:0.199 blue:0.333 alpha:1];
     }];
 }
 
@@ -410,8 +396,10 @@
             NSLog(@"logged in successfully");
             // do stuff after successful login
             
+            UINavigationController *navVC = [[UINavigationController alloc] init];
+            [self presentViewController:navVC animated:YES completion:nil];
             QuestionsTableViewController *questionsVC = [[QuestionsTableViewController alloc] init];
-            [self presentViewController:questionsVC animated:YES completion:nil];
+            [navVC setViewControllers:@[questionsVC] animated:YES];
         } else {
             // the login failed. check error to see why
             
@@ -447,6 +435,15 @@
         }
     }];
 }
+
+
+// offline login
+//- (void)logIn {
+//    UINavigationController *nav = [[UINavigationController alloc] init];
+//    [self presentViewController:nav animated:YES completion:nil];
+//    QuestionsTableViewController *questionsVC = [[QuestionsTableViewController alloc] init];
+//    [nav setViewControllers:@[questionsVC] animated:NO];
+//}
 
 #pragma mark - Miscellaneous
 
@@ -509,7 +506,6 @@
             self.requirementsLabel2.text = @"";
             self.requirementsLabel3.text = @"";
             self.requirementsLabel4.text = @"";
-            self.requirementsLabel5.text = @"";
         } completion:^(BOOL finished) {
             return;
         }];
