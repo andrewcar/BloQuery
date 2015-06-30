@@ -9,6 +9,8 @@
 #import "QuestionTableViewCell.h"
 #import "DataSource.h"
 
+#import <Parse/Parse.h>
+
 @interface QuestionTableViewCell()
 
 @property (nonatomic, strong) UIView *thoughtBubble1;
@@ -34,7 +36,7 @@
 
 @implementation QuestionTableViewCell
 
-CGFloat padding = 20;
+#define padding 20
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

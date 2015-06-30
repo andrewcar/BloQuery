@@ -7,13 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Parse/Parse.h"
 
-@class QuestionTableViewCell;
-
-@protocol QuestionTableViewCellDelegate <NSObject>
-
-@end
+@class PFObject;
 
 @interface QuestionTableViewCell : UITableViewCell
 
@@ -22,8 +17,6 @@
 @property (nonatomic, strong) UILabel *questionLabel;
 @property (nonatomic, strong) UIImageView *faceImageView;
 @property (nonatomic, strong) UILabel *numberOfAnswersLabel;
-
-@property (nonatomic, weak) id <QuestionTableViewCellDelegate> delegate;
 
 + (CGFloat)heightForQuestionPost:(PFObject *)questionPost withWidth:(CGFloat)width;
 

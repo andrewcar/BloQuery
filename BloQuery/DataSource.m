@@ -7,6 +7,7 @@
 //
 
 #import "DataSource.h"
+#import <Parse/Parse.h>
 
 @implementation DataSource
 
@@ -63,7 +64,7 @@
         if (!error) {
             self.listOfAnswers = [objects mutableCopy];
             CGFloat floatNumber = objects.count;
-            self.numberOfAnswers = &(floatNumber);
+            self.numberOfAnswers = floatNumber;
             if (successBlock) {
                 successBlock(self.listOfQuestions);
             }

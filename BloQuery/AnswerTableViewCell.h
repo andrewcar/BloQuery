@@ -7,13 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Parse/Parse.h"
 
-@class AnswerTableViewCell;
-
-@protocol AnswerTableViewCellDelegate <NSObject>
-
-@end
+@class PFObject;
 
 @interface AnswerTableViewCell : UITableViewCell
 
@@ -21,7 +16,6 @@
 @property (nonatomic, strong) UIView *answerBox;
 @property (nonatomic, strong) UILabel *answerLabel;
 @property (nonatomic, strong) UIImageView *faceImageView;
-@property (nonatomic, weak) id <AnswerTableViewCellDelegate> delegate;
 
 + (CGFloat)heightForAnswerPost:(PFObject *)answerPost withWidth:(CGFloat)width;
 

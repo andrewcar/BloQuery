@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@import UIKit;
 
 @class Media;
 
@@ -16,8 +17,8 @@ typedef void (^NewItemCompletionBlock)(NSError *error);
 
 @property (nonatomic, strong) NSMutableArray *listOfQuestions;
 @property (nonatomic, strong) NSMutableArray *listOfAnswers;
-@property (nonatomic, assign) CGFloat *numberOfQuestions;
-@property (nonatomic, assign) CGFloat *numberOfAnswers;
+@property (nonatomic, assign) CGFloat numberOfQuestions;
+@property (nonatomic, assign) CGFloat numberOfAnswers;
 
 + (instancetype)sharedInstance;
 

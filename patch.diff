@@ -1,0 +1,295 @@
+diff --git a/BloQuery.xcodeproj/project.pbxproj b/BloQuery.xcodeproj/project.pbxproj
+index bfd9920..603c613 100755
+--- a/BloQuery.xcodeproj/project.pbxproj
++++ b/BloQuery.xcodeproj/project.pbxproj
+@@ -15,7 +15,6 @@
+ 		494B454E1B1CC570007879C3 /* BloQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 494B454D1B1CC570007879C3 /* BloQueryTests.m */; };
+ 		494B455C1B1CD542007879C3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494B455B1B1CD542007879C3 /* LoginViewController.m */; };
+ 		494B455F1B1CD914007879C3 /* QuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494B455E1B1CD914007879C3 /* QuestionsTableViewController.m */; };
+-		495C33581B3E3E6400975785 /* AnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495C33571B3E3E6400975785 /* AnswerTableViewCell.m */; };
+ 		496E2E6F1B3113FC00F76365 /* happyFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 496E2E691B3113FC00F76365 /* happyFace.png */; };
+ 		496E2E701B3113FC00F76365 /* hmmFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 496E2E6A1B3113FC00F76365 /* hmmFace.png */; };
+ 		496E2E711B3113FC00F76365 /* reallyHappyFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 496E2E6B1B3113FC00F76365 /* reallyHappyFace.png */; };
+@@ -38,11 +37,10 @@
+ 		49C608331B42189C002EFCE1 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C608321B42189C002EFCE1 /* Social.framework */; };
+ 		49D35AC81B328C8000687594 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D35AC71B328C8000687594 /* DataSource.m */; };
+ 		49DC7EEE1B42B168000B2C21 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EE91B42B168000B2C21 /* Parse.framework */; };
+-		49DC7EEF1B42B168000B2C21 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EEA1B42B168000B2C21 /* ParseCrashReporting.framework */; };
+-		49DC7EF01B42B168000B2C21 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EEB1B42B168000B2C21 /* ParseFacebookUtils.framework */; };
+-		49DC7EF11B42B168000B2C21 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EEC1B42B168000B2C21 /* ParseFacebookUtilsV4.framework */; };
+ 		49DC7EF21B42B168000B2C21 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EED1B42B168000B2C21 /* ParseUI.framework */; };
+-		49FEF78B1B2BE61A00A188CF /* QuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF78A1B2BE61A00A188CF /* QuestionTableViewCell.m */; };
++		CC1718CF1B42F55500B00E94 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1718CE1B42F55500B00E94 /* Bolts.framework */; };
++		CC1718D01B42F61D00B00E94 /* QuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF78A1B2BE61A00A188CF /* QuestionTableViewCell.m */; };
++		CC1718D11B42F62300B00E94 /* AnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495C33571B3E3E6400975785 /* AnswerTableViewCell.m */; };
+ /* End PBXBuildFile section */
+ 
+ /* Begin PBXContainerItemProxy section */
+@@ -103,6 +101,7 @@
+ 		49DC7EED1B42B168000B2C21 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseUI.framework; path = BloQuery/ParseUI.framework; sourceTree = "<group>"; };
+ 		49FEF7891B2BE61A00A188CF /* QuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionTableViewCell.h; sourceTree = "<group>"; };
+ 		49FEF78A1B2BE61A00A188CF /* QuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionTableViewCell.m; sourceTree = "<group>"; };
++		CC1718CE1B42F55500B00E94 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = BloQuery/Bolts.framework; sourceTree = "<group>"; };
+ /* End PBXFileReference section */
+ 
+ /* Begin PBXFrameworksBuildPhase section */
+@@ -110,9 +109,9 @@
+ 			isa = PBXFrameworksBuildPhase;
+ 			buildActionMask = 2147483647;
+ 			files = (
++				CC1718CF1B42F55500B00E94 /* Bolts.framework in Frameworks */,
+ 				49DC7EF21B42B168000B2C21 /* ParseUI.framework in Frameworks */,
+ 				49C608331B42189C002EFCE1 /* Social.framework in Frameworks */,
+-				49DC7EEF1B42B168000B2C21 /* ParseCrashReporting.framework in Frameworks */,
+ 				49C608311B421898002EFCE1 /* Accounts.framework in Frameworks */,
+ 				49C6082F1B421892002EFCE1 /* libsqlite3.dylib in Frameworks */,
+ 				49C6082D1B42188C002EFCE1 /* libz.dylib in Frameworks */,
+@@ -125,8 +124,6 @@
+ 				49DC7EEE1B42B168000B2C21 /* Parse.framework in Frameworks */,
+ 				49C6081F1B421863002EFCE1 /* CoreGraphics.framework in Frameworks */,
+ 				49C6081D1B42185E002EFCE1 /* CFNetwork.framework in Frameworks */,
+-				49DC7EF11B42B168000B2C21 /* ParseFacebookUtilsV4.framework in Frameworks */,
+-				49DC7EF01B42B168000B2C21 /* ParseFacebookUtils.framework in Frameworks */,
+ 				49C6081B1B421848002EFCE1 /* AudioToolbox.framework in Frameworks */,
+ 			);
+ 			runOnlyForDeploymentPostprocessing = 0;
+@@ -144,6 +141,7 @@
+ 		2CBBE738FB55F34EC76F024D /* Frameworks */ = {
+ 			isa = PBXGroup;
+ 			children = (
++				CC1718CE1B42F55500B00E94 /* Bolts.framework */,
+ 				49DC7EE91B42B168000B2C21 /* Parse.framework */,
+ 				49DC7EEA1B42B168000B2C21 /* ParseCrashReporting.framework */,
+ 				49DC7EEB1B42B168000B2C21 /* ParseFacebookUtils.framework */,
+@@ -258,11 +256,9 @@
+ 			isa = PBXNativeTarget;
+ 			buildConfigurationList = 494B45511B1CC570007879C3 /* Build configuration list for PBXNativeTarget "BloQuery" */;
+ 			buildPhases = (
+-				A697CCBEC8EFBE8010F6C99B /* Check Pods Manifest.lock */,
+ 				494B452A1B1CC570007879C3 /* Sources */,
+ 				494B452B1B1CC570007879C3 /* Frameworks */,
+ 				494B452C1B1CC570007879C3 /* Resources */,
+-				CA12613C8FD4FE56AC6534AF /* Copy Pods Resources */,
+ 			);
+ 			buildRules = (
+ 			);
+@@ -354,49 +350,16 @@
+ 		};
+ /* End PBXResourcesBuildPhase section */
+ 
+-/* Begin PBXShellScriptBuildPhase section */
+-		A697CCBEC8EFBE8010F6C99B /* Check Pods Manifest.lock */ = {
+-			isa = PBXShellScriptBuildPhase;
+-			buildActionMask = 2147483647;
+-			files = (
+-			);
+-			inputPaths = (
+-			);
+-			name = "Check Pods Manifest.lock";
+-			outputPaths = (
+-			);
+-			runOnlyForDeploymentPostprocessing = 0;
+-			shellPath = /bin/sh;
+-			shellScript = "";
+-			showEnvVarsInLog = 0;
+-		};
+-		CA12613C8FD4FE56AC6534AF /* Copy Pods Resources */ = {
+-			isa = PBXShellScriptBuildPhase;
+-			buildActionMask = 2147483647;
+-			files = (
+-			);
+-			inputPaths = (
+-			);
+-			name = "Copy Pods Resources";
+-			outputPaths = (
+-			);
+-			runOnlyForDeploymentPostprocessing = 0;
+-			shellPath = /bin/sh;
+-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+-			showEnvVarsInLog = 0;
+-		};
+-/* End PBXShellScriptBuildPhase section */
+-
+ /* Begin PBXSourcesBuildPhase section */
+ 		494B452A1B1CC570007879C3 /* Sources */ = {
+ 			isa = PBXSourcesBuildPhase;
+ 			buildActionMask = 2147483647;
+ 			files = (
++				CC1718D11B42F62300B00E94 /* AnswerTableViewCell.m in Sources */,
++				CC1718D01B42F61D00B00E94 /* QuestionTableViewCell.m in Sources */,
+ 				494B455F1B1CD914007879C3 /* QuestionsTableViewController.m in Sources */,
+ 				494B45371B1CC570007879C3 /* AppDelegate.m in Sources */,
+ 				498DE0D41B3090740014A4C7 /* AnswersTableViewController.m in Sources */,
+-				495C33581B3E3E6400975785 /* AnswerTableViewCell.m in Sources */,
+-				49FEF78B1B2BE61A00A188CF /* QuestionTableViewCell.m in Sources */,
+ 				49D35AC81B328C8000687594 /* DataSource.m in Sources */,
+ 				494B45341B1CC570007879C3 /* main.m in Sources */,
+ 				494B455C1B1CD542007879C3 /* LoginViewController.m in Sources */,
+@@ -531,14 +494,10 @@
+ 				FRAMEWORK_SEARCH_PATHS = (
+ 					"$(inherited)",
+ 					"$(PROJECT_DIR)/BloQuery",
+-					"$(PROJECT_DIR)/BloQuery/parse-library",
+ 				);
+ 				INFOPLIST_FILE = BloQuery/Info.plist;
+ 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+ 				OTHER_LDFLAGS = (
+-					"-l\"z\"",
+-					"-weak_framework",
+-					"-weak_framework",
+ 					"$(inherited)",
+ 					"-ObjC",
+ 				);
+@@ -554,14 +513,10 @@
+ 				FRAMEWORK_SEARCH_PATHS = (
+ 					"$(inherited)",
+ 					"$(PROJECT_DIR)/BloQuery",
+-					"$(PROJECT_DIR)/BloQuery/parse-library",
+ 				);
+ 				INFOPLIST_FILE = BloQuery/Info.plist;
+ 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+ 				OTHER_LDFLAGS = (
+-					"-l\"z\"",
+-					"-weak_framework",
+-					"-weak_framework",
+ 					"$(inherited)",
+ 					"-ObjC",
+ 				);
+diff --git a/BloQuery/AnswerTableViewCell.h b/BloQuery/AnswerTableViewCell.h
+index f7b67fe..25b9a37 100644
+--- a/BloQuery/AnswerTableViewCell.h
++++ b/BloQuery/AnswerTableViewCell.h
+@@ -7,13 +7,8 @@
+ //
+ 
+ #import <UIKit/UIKit.h>
+-#import "Parse/Parse.h"
+ 
+-@class AnswerTableViewCell;
+-
+-@protocol AnswerTableViewCellDelegate <NSObject>
+-
+-@end
++@class PFObject;
+ 
+ @interface AnswerTableViewCell : UITableViewCell
+ 
+@@ -21,7 +16,6 @@
+ @property (nonatomic, strong) UIView *answerBox;
+ @property (nonatomic, strong) UILabel *answerLabel;
+ @property (nonatomic, strong) UIImageView *faceImageView;
+-@property (nonatomic, weak) id <AnswerTableViewCellDelegate> delegate;
+ 
+ + (CGFloat)heightForAnswerPost:(PFObject *)answerPost withWidth:(CGFloat)width;
+ 
+diff --git a/BloQuery/AnswerTableViewCell.m b/BloQuery/AnswerTableViewCell.m
+index 4cb679a..bb99daf 100644
+--- a/BloQuery/AnswerTableViewCell.m
++++ b/BloQuery/AnswerTableViewCell.m
+@@ -7,10 +7,11 @@
+ //
+ 
+ #import "AnswerTableViewCell.h"
++#import <Parse/Parse.h>
+ 
+ @implementation AnswerTableViewCell
+ 
+-CGFloat padding = 20;
++#define padding 20
+ 
+ - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+diff --git a/BloQuery/DataSource.h b/BloQuery/DataSource.h
+index 9ab4304..23de66f 100644
+--- a/BloQuery/DataSource.h
++++ b/BloQuery/DataSource.h
+@@ -7,6 +7,7 @@
+ //
+ 
+ #import <Foundation/Foundation.h>
++@import UIKit;
+ 
+ @class Media;
+ 
+@@ -16,8 +17,8 @@ typedef void (^NewItemCompletionBlock)(NSError *error);
+ 
+ @property (nonatomic, strong) NSMutableArray *listOfQuestions;
+ @property (nonatomic, strong) NSMutableArray *listOfAnswers;
+-@property (nonatomic, assign) CGFloat *numberOfQuestions;
+-@property (nonatomic, assign) CGFloat *numberOfAnswers;
++@property (nonatomic, assign) CGFloat numberOfQuestions;
++@property (nonatomic, assign) CGFloat numberOfAnswers;
+ 
+ + (instancetype)sharedInstance;
+ 
+diff --git a/BloQuery/DataSource.m b/BloQuery/DataSource.m
+index 57af95d..98a4e16 100644
+--- a/BloQuery/DataSource.m
++++ b/BloQuery/DataSource.m
+@@ -7,6 +7,7 @@
+ //
+ 
+ #import "DataSource.h"
++#import <Parse/Parse.h>
+ 
+ @implementation DataSource
+ 
+@@ -63,7 +64,7 @@
+         if (!error) {
+             self.listOfAnswers = [objects mutableCopy];
+             CGFloat floatNumber = objects.count;
+-            self.numberOfAnswers = &(floatNumber);
++            self.numberOfAnswers = floatNumber;
+             if (successBlock) {
+                 successBlock(self.listOfQuestions);
+             }
+diff --git a/BloQuery/QuestionTableViewCell.h b/BloQuery/QuestionTableViewCell.h
+index e53e7ee..a87b805 100644
+--- a/BloQuery/QuestionTableViewCell.h
++++ b/BloQuery/QuestionTableViewCell.h
+@@ -7,13 +7,8 @@
+ //
+ 
+ #import <UIKit/UIKit.h>
+-#import "Parse/Parse.h"
+ 
+-@class QuestionTableViewCell;
+-
+-@protocol QuestionTableViewCellDelegate <NSObject>
+-
+-@end
++@class PFObject;
+ 
+ @interface QuestionTableViewCell : UITableViewCell
+ 
+@@ -23,8 +18,6 @@
+ @property (nonatomic, strong) UIImageView *faceImageView;
+ @property (nonatomic, strong) UILabel *numberOfAnswersLabel;
+ 
+-@property (nonatomic, weak) id <QuestionTableViewCellDelegate> delegate;
+-
+ + (CGFloat)heightForQuestionPost:(PFObject *)questionPost withWidth:(CGFloat)width;
+ 
+ @end
+diff --git a/BloQuery/QuestionTableViewCell.m b/BloQuery/QuestionTableViewCell.m
+index 7379706..d3b864b 100644
+--- a/BloQuery/QuestionTableViewCell.m
++++ b/BloQuery/QuestionTableViewCell.m
+@@ -9,6 +9,8 @@
+ #import "QuestionTableViewCell.h"
+ #import "DataSource.h"
+ 
++#import <Parse/Parse.h>
++
+ @interface QuestionTableViewCell()
+ 
+ @property (nonatomic, strong) UIView *thoughtBubble1;
+@@ -34,7 +36,7 @@
+ 
+ @implementation QuestionTableViewCell
+ 
+-CGFloat padding = 20;
++#define padding 20
+ 
+ - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

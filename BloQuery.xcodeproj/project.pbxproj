@@ -15,7 +15,6 @@
 		494B454E1B1CC570007879C3 /* BloQueryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 494B454D1B1CC570007879C3 /* BloQueryTests.m */; };
 		494B455C1B1CD542007879C3 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494B455B1B1CD542007879C3 /* LoginViewController.m */; };
 		494B455F1B1CD914007879C3 /* QuestionsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 494B455E1B1CD914007879C3 /* QuestionsTableViewController.m */; };
-		495C33581B3E3E6400975785 /* AnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495C33571B3E3E6400975785 /* AnswerTableViewCell.m */; };
 		496E2E6F1B3113FC00F76365 /* happyFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 496E2E691B3113FC00F76365 /* happyFace.png */; };
 		496E2E701B3113FC00F76365 /* hmmFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 496E2E6A1B3113FC00F76365 /* hmmFace.png */; };
 		496E2E711B3113FC00F76365 /* reallyHappyFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 496E2E6B1B3113FC00F76365 /* reallyHappyFace.png */; };
@@ -38,11 +37,10 @@
 		49C608331B42189C002EFCE1 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C608321B42189C002EFCE1 /* Social.framework */; };
 		49D35AC81B328C8000687594 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D35AC71B328C8000687594 /* DataSource.m */; };
 		49DC7EEE1B42B168000B2C21 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EE91B42B168000B2C21 /* Parse.framework */; };
-		49DC7EEF1B42B168000B2C21 /* ParseCrashReporting.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EEA1B42B168000B2C21 /* ParseCrashReporting.framework */; };
-		49DC7EF01B42B168000B2C21 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EEB1B42B168000B2C21 /* ParseFacebookUtils.framework */; };
-		49DC7EF11B42B168000B2C21 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EEC1B42B168000B2C21 /* ParseFacebookUtilsV4.framework */; };
 		49DC7EF21B42B168000B2C21 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EED1B42B168000B2C21 /* ParseUI.framework */; };
-		49FEF78B1B2BE61A00A188CF /* QuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF78A1B2BE61A00A188CF /* QuestionTableViewCell.m */; };
+		CC1718CF1B42F55500B00E94 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1718CE1B42F55500B00E94 /* Bolts.framework */; };
+		CC1718D01B42F61D00B00E94 /* QuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 49FEF78A1B2BE61A00A188CF /* QuestionTableViewCell.m */; };
+		CC1718D11B42F62300B00E94 /* AnswerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 495C33571B3E3E6400975785 /* AnswerTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +101,7 @@
 		49DC7EED1B42B168000B2C21 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseUI.framework; path = BloQuery/ParseUI.framework; sourceTree = "<group>"; };
 		49FEF7891B2BE61A00A188CF /* QuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuestionTableViewCell.h; sourceTree = "<group>"; };
 		49FEF78A1B2BE61A00A188CF /* QuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuestionTableViewCell.m; sourceTree = "<group>"; };
+		CC1718CE1B42F55500B00E94 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = BloQuery/Bolts.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,9 +109,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC1718CF1B42F55500B00E94 /* Bolts.framework in Frameworks */,
 				49DC7EF21B42B168000B2C21 /* ParseUI.framework in Frameworks */,
 				49C608331B42189C002EFCE1 /* Social.framework in Frameworks */,
-				49DC7EEF1B42B168000B2C21 /* ParseCrashReporting.framework in Frameworks */,
 				49C608311B421898002EFCE1 /* Accounts.framework in Frameworks */,
 				49C6082F1B421892002EFCE1 /* libsqlite3.dylib in Frameworks */,
 				49C6082D1B42188C002EFCE1 /* libz.dylib in Frameworks */,
@@ -125,8 +124,6 @@
 				49DC7EEE1B42B168000B2C21 /* Parse.framework in Frameworks */,
 				49C6081F1B421863002EFCE1 /* CoreGraphics.framework in Frameworks */,
 				49C6081D1B42185E002EFCE1 /* CFNetwork.framework in Frameworks */,
-				49DC7EF11B42B168000B2C21 /* ParseFacebookUtilsV4.framework in Frameworks */,
-				49DC7EF01B42B168000B2C21 /* ParseFacebookUtils.framework in Frameworks */,
 				49C6081B1B421848002EFCE1 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -144,6 +141,7 @@
 		2CBBE738FB55F34EC76F024D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CC1718CE1B42F55500B00E94 /* Bolts.framework */,
 				49DC7EE91B42B168000B2C21 /* Parse.framework */,
 				49DC7EEA1B42B168000B2C21 /* ParseCrashReporting.framework */,
 				49DC7EEB1B42B168000B2C21 /* ParseFacebookUtils.framework */,
@@ -258,11 +256,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 494B45511B1CC570007879C3 /* Build configuration list for PBXNativeTarget "BloQuery" */;
 			buildPhases = (
-				A697CCBEC8EFBE8010F6C99B /* Check Pods Manifest.lock */,
 				494B452A1B1CC570007879C3 /* Sources */,
 				494B452B1B1CC570007879C3 /* Frameworks */,
 				494B452C1B1CC570007879C3 /* Resources */,
-				CA12613C8FD4FE56AC6534AF /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -354,49 +350,16 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		A697CCBEC8EFBE8010F6C99B /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "";
-			showEnvVarsInLog = 0;
-		};
-		CA12613C8FD4FE56AC6534AF /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		494B452A1B1CC570007879C3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC1718D11B42F62300B00E94 /* AnswerTableViewCell.m in Sources */,
+				CC1718D01B42F61D00B00E94 /* QuestionTableViewCell.m in Sources */,
 				494B455F1B1CD914007879C3 /* QuestionsTableViewController.m in Sources */,
 				494B45371B1CC570007879C3 /* AppDelegate.m in Sources */,
 				498DE0D41B3090740014A4C7 /* AnswersTableViewController.m in Sources */,
-				495C33581B3E3E6400975785 /* AnswerTableViewCell.m in Sources */,
-				49FEF78B1B2BE61A00A188CF /* QuestionTableViewCell.m in Sources */,
 				49D35AC81B328C8000687594 /* DataSource.m in Sources */,
 				494B45341B1CC570007879C3 /* main.m in Sources */,
 				494B455C1B1CD542007879C3 /* LoginViewController.m in Sources */,
@@ -531,14 +494,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BloQuery",
-					"$(PROJECT_DIR)/BloQuery/parse-library",
 				);
 				INFOPLIST_FILE = BloQuery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
-					"-l\"z\"",
-					"-weak_framework",
-					"-weak_framework",
 					"$(inherited)",
 					"-ObjC",
 				);
@@ -554,14 +513,10 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/BloQuery",
-					"$(PROJECT_DIR)/BloQuery/parse-library",
 				);
 				INFOPLIST_FILE = BloQuery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
-					"-l\"z\"",
-					"-weak_framework",
-					"-weak_framework",
 					"$(inherited)",
 					"-ObjC",
 				);

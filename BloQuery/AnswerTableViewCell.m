@@ -7,10 +7,11 @@
 //
 
 #import "AnswerTableViewCell.h"
+#import <Parse/Parse.h>
 
 @implementation AnswerTableViewCell
 
-CGFloat padding = 20;
+#define padding 20
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
