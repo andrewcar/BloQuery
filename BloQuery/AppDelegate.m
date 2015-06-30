@@ -7,10 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "Parse/Parse.h"
 #import "DataSource.h"
 #import "LoginViewController.h"
 #import "QuestionsTableViewController.h"
-#import <Parse/Parse.h>
+#import "AnswersTableViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,12 +24,13 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     UINavigationController *navVC = [[UINavigationController alloc] init];
-    LoginViewController *loginVC = [[LoginViewController alloc] init];
-    [navVC setViewControllers:@[loginVC] animated:YES];
+//    LoginViewController *loginVC = [[LoginViewController alloc] init];
+    AnswersTableViewController *answersTVC = [[AnswersTableViewController alloc] init];
+    [navVC setViewControllers:@[answersTVC] animated:YES];
     
     navVC.navigationBarHidden = YES;
     self.window.rootViewController = navVC;
-    self.window.backgroundColor = [UIColor colorWithRed:0.1 green:0.55 blue:0.69 alpha:1];
+    self.window.backgroundColor = [UIColor colorWithRed:25/255.0 green:134/255.0 blue:235/255.0 alpha:1];
     
     // [Optional] Power your app with Local Datastore. For more info, go to
     // https://parse.com/docs/ios_guide#localdatastore/iOS

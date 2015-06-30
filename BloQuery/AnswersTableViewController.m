@@ -7,6 +7,9 @@
 //
 
 #import "AnswersTableViewController.h"
+#import "QuestionTableViewCell.h"
+#import "AnswerTableViewCell.h"
+#import "DataSource.h"
 
 @interface AnswersTableViewController ()
 
@@ -14,10 +17,21 @@
 
 @implementation AnswersTableViewController
 
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+    self = [super initWithStyle:style];
+    if (self) {
+        self.tableView.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
+
+        self.tableView.separatorColor = [UIColor clearColor];
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor purpleColor];
+    [self.tableView registerClass:[QuestionTableViewCell class] forCellReuseIdentifier:@"questionCell"];
+    [self.tableView registerClass:[AnswerTableViewCell class] forCellReuseIdentifier:@"answerCell"];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -35,23 +49,37 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 1;
+    if (section == 1) {
+        return 1;
+    } else {
+        return 3;
+    }
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
+    if (indexPath.row == 0) {
+        QuestionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"questionCell" forIndexPath:indexPath];
+        cell.questionPost = [DataSource sharedInstance].listOfQuestions[indexPath.row];
+        return cell;
+    } else {
+        AnswerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"answerCell" forIndexPath:indexPath];
+        cell.answerPost = [DataSource sharedInstance].listOfAnswers[indexPath.row];
+        return cell;
+    }
+
     // Configure the cell...
-    
-    return cell;
 }
-*/
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    PFObject *answerPost = [DataSource sharedInstance].listOfAnswers[indexPath.row];
+    return [AnswerTableViewCell heightForAnswerPost:answerPost withWidth:CGRectGetWidth(self.view.frame)] + 40;
+}
 
 /*
 // Override to support conditional editing of the table view.

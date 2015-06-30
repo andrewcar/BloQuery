@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AnswersTableViewController : UITableViewController
+@interface AnswersTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

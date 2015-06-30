@@ -15,6 +15,4 @@
 
 @interface LoginViewController : UIViewController
 
-//@property (nonatomic, assign) AccountState accountState;
-
 @end

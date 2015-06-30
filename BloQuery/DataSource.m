@@ -36,9 +36,6 @@
     [question saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (succeeded) {
             NSLog(@"question post succeeded");
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"QUESTION POST SAVED" message:nil delegate:nil cancelButtonTitle:@"FUCK" otherButtonTitles:@"YES", nil];
-            [alert show];
         } else {
             NSLog(@"question post failed");
         }
@@ -51,6 +48,22 @@
     [questionQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.listOfQuestions = [objects mutableCopy];
+            if (successBlock) {
+                successBlock(self.listOfQuestions);
+                
+            }
+        }
+    }];
+}
+
+- (void)populateListOfAnswers:(void (^)(NSArray *))successBlock {
+    PFQuery *answerQuery = [PFQuery queryWithClassName:@"Answer"];
+    
+    [answerQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            self.listOfAnswers = [objects mutableCopy];
+            CGFloat floatNumber = objects.count;
+            self.numberOfAnswers = &(floatNumber);
             if (successBlock) {
                 successBlock(self.listOfQuestions);
             }

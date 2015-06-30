@@ -7,9 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ParseUI/ParseUIConstants.h>
-
-@class QuestionTableViewCell, BFTask, PFObject, PFQuery;
 
 @interface QuestionsTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
 
