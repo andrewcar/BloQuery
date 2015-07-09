@@ -28,21 +28,51 @@
     return self;
 }
 
-- (void)postQuestion:(NSString *)questionText {
+- (void)postQuestion:(NSString *)questionText withSuccess:(void (^)(BOOL succeeded))successBlock {
     PFObject *question = [PFObject objectWithClassName:@"Question"];
     
     question[@"text"] = questionText;
-    question[@"postedBy"] = [PFUser currentUser].username;
     
+    // set asked by
+    PFRelation *askedByRelation = [question relationForKey:@"askedBy"];
+    [askedByRelation addObject:[PFUser currentUser]];
+
     [question saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            NSLog(@"question post succeeded");
-        } else {
-            NSLog(@"question post failed");
+        if (successBlock) {
+            successBlock(succeeded);
         }
     }];
 }
 
+- (void)postAnswer:(NSString *)answerText withSuccess:(void (^)(BOOL succeeded))successBlock {
+    PFObject *answer = [PFObject objectWithClassName:@"Answer"];
+    
+    answer[@"text"] = answerText;
+    
+
+    
+    PFRelation *answerRelation = [self.question relationForKey:@"Answers"];
+    [answerRelation addObject:answer];
+    
+    [answer saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        [self.question saveInBackgroundWithBlock:^(BOOL succeded, NSError *error) {
+            if (successBlock) {
+                successBlock(succeded);
+                NSLog(@"question saved");
+            }
+        }];
+    }];
+    
+    // set replied by to current user
+    PFRelation *repliedByRelation = [answer relationForKey:@"repliedBy"];
+    [repliedByRelation addObject:[PFUser currentUser]];
+    
+    [answer saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (successBlock) {
+            successBlock(succeeded);
+        }
+    }];
+}
 - (void)populateListOfQuestions:(void (^)(NSArray *questions))successBlock {
     PFQuery *questionQuery = [PFQuery queryWithClassName:@"Question"];
     
@@ -51,22 +81,18 @@
             self.listOfQuestions = [objects mutableCopy];
             if (successBlock) {
                 successBlock(self.listOfQuestions);
-                
             }
         }
     }];
 }
 
-- (void)populateListOfAnswers:(void (^)(NSArray *))successBlock {
-    PFQuery *answerQuery = [PFQuery queryWithClassName:@"Answer"];
-    
-    [answerQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+- (void)answersForQuestion:(PFObject *)question withSuccess:(void (^)(NSArray *))successBlock {
+    PFRelation *answersRelation = [question relationForKey:@"Answers"];
+
+    [[answersRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
-            self.listOfAnswers = [objects mutableCopy];
-            CGFloat floatNumber = objects.count;
-            self.numberOfAnswers = floatNumber;
             if (successBlock) {
-                successBlock(self.listOfQuestions);
+                successBlock(objects);
             }
         }
     }];

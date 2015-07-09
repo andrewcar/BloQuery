@@ -13,10 +13,6 @@
 
 @interface QuestionTableViewCell()
 
-@property (nonatomic, strong) UIView *thoughtBubble1;
-@property (nonatomic, strong) UIView *thoughtBubble2;
-@property (nonatomic, strong) UIView *thoughtBubble3;
-
 @property (nonatomic, strong) UIView *thoughtBubble1a;
 @property (nonatomic, strong) UIView *thoughtBubble1b;
 @property (nonatomic, strong) UIView *thoughtBubble1c;
@@ -41,7 +37,8 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        self.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
+//        self.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
+        self.backgroundColor = [UIColor clearColor];
 
         self.questionBox = [[UIView alloc] init];
         self.questionBox.backgroundColor = [UIColor colorWithRed:25/255.0 green:134/255.0 blue:235/255.0 alpha:1];
@@ -77,7 +74,6 @@
         self.faceImageView.image = [UIImage imageNamed:@"xFace.png"];
         
         self.numberOfAnswersLabel = [[UILabel alloc] init];
-        self.numberOfAnswersLabel.text = [NSString stringWithFormat:@"%ld", (long)[DataSource sharedInstance].numberOfAnswers];
         self.numberOfAnswersLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
         self.numberOfAnswersLabel.textAlignment = NSTextAlignmentCenter;
         self.numberOfAnswersLabel.textColor = [UIColor whiteColor];
@@ -95,6 +91,7 @@
 - (void)setQuestionPost:(PFObject *)questionPost {
     _questionPost = questionPost;
     self.questionLabel.text = questionPost[@"text"];
+//    self.numberOfAnswersLabel.text = [NSString stringWithFormat:@"%ld answers", (long)[_questionPost[@"Answers"] count]];
 }
 
 - (void)layoutSubviews {

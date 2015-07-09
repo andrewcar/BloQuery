@@ -17,6 +17,9 @@
 @property (nonatomic, strong) UILabel *questionLabel;
 @property (nonatomic, strong) UIImageView *faceImageView;
 @property (nonatomic, strong) UILabel *numberOfAnswersLabel;
+@property (nonatomic, strong) UIView *thoughtBubble1;
+@property (nonatomic, strong) UIView *thoughtBubble2;
+@property (nonatomic, strong) UIView *thoughtBubble3;
 
 + (CGFloat)heightForQuestionPost:(PFObject *)questionPost withWidth:(CGFloat)width;
 

@@ -90,7 +90,7 @@
     
     self.verifyPasswordField = [[UITextField alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.usernameField.frame), CGRectGetMinY(self.usernameField.frame) - 69, CGRectGetWidth(self.view.frame) * 0.75, 0)];
     self.verifyPasswordField.delegate = self;
-    self.verifyPasswordField.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
+    self.verifyPasswordField.backgroundColor = [UIColor colorWithRed:42/255.0 green:42/255.0 blue:42/255.0 alpha:1];
     self.verifyPasswordField.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
     self.verifyPasswordField.textColor = [UIColor whiteColor];
     self.verifyPasswordField.textAlignment = NSTextAlignmentCenter;
@@ -102,7 +102,7 @@
     self.signUpButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.signUpButton.frame = CGRectMake(CGRectGetMinX(self.passwordField.frame), CGRectGetMaxY(self.passwordField.frame) + 62, buttonWidth, 42);
     [self.signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.signUpButton.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:27/255.0 alpha:1];
+    self.signUpButton.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
     
     [self.signUpButton setTitle:@"sign up" forState:UIControlStateNormal];
     self.signUpButton.titleLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
@@ -113,7 +113,7 @@
     self.logInButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.logInButton.frame = CGRectMake(CGRectGetMaxX(self.passwordField.frame) - buttonWidth, CGRectGetMaxY(self.passwordField.frame) + 62, buttonWidth, 42);
     [self.logInButton addTarget:self action:@selector(logInButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.logInButton.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:27/255.0 alpha:1];
+    self.logInButton.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
     [self.logInButton setTitle:@"log in" forState:UIControlStateNormal];
     self.logInButton.titleLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
     self.logInButton.titleLabel.textColor = [UIColor whiteColor];
@@ -240,7 +240,7 @@
                     [UIView animateWithDuration:0.8 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
                         self.requirementsView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.usernameField.frame) - 10, CGRectGetMaxY(self.view.frame), CGRectGetWidth(self.usernameField.frame) + 30, (CGRectGetHeight(self.view.frame) - 400))];
                         self.requirementsView.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (CGRectGetWidth(self.requirementsView.frame) / 2), (CGRectGetMinY(self.view.frame) + 150), CGRectGetWidth(self.usernameField.frame) + 30, (CGRectGetHeight(self.view.frame) - 400));
-                        self.requirementsView.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+                        self.requirementsView.backgroundColor = [UIColor colorWithRed:220/255.0 green:26/255.0 blue:30/255.0 alpha:1];
                         
                         [self.view addSubview:self.requirementsView];
                     } completion:^(BOOL finished) {
@@ -264,7 +264,7 @@
                         
                         self.requirementsLabel3 = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.requirementsView.frame) + 25, CGRectGetMaxY(self.requirementsLabel2.frame), CGRectGetWidth(self.requirementsTitleLabel.frame), CGRectGetHeight(self.requirementsTitleLabel.frame))];
                         self.requirementsLabel3.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:16];
-                        self.requirementsLabel3.text = @"We support these guys:";
+                        self.requirementsLabel3.text = @"Only use these :";
                         self.requirementsLabel3.textAlignment = NSTextAlignmentLeft;
                         self.requirementsLabel3.textColor = [UIColor whiteColor];
                         

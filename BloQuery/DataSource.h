@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Parse/Parse.h"
+
 @import UIKit;
 
 @class Media;
@@ -15,15 +17,18 @@ typedef void (^NewItemCompletionBlock)(NSError *error);
 
 @interface DataSource : NSObject
 
+@property (nonatomic, strong) PFObject *question;
 @property (nonatomic, strong) NSMutableArray *listOfQuestions;
-@property (nonatomic, strong) NSMutableArray *listOfAnswers;
-@property (nonatomic, assign) CGFloat numberOfQuestions;
-@property (nonatomic, assign) CGFloat numberOfAnswers;
 
 + (instancetype)sharedInstance;
 
-- (void)postQuestion:(NSString *)questionText;
+- (void)postQuestion:(NSString *)questionText withSuccess:(void (^)(BOOL succeeded))successBlock;
+
+- (void)postAnswer:(NSString *)answerText withSuccess:(void (^)(BOOL succeeded))successBlock;
 
 - (void)populateListOfQuestions:(void (^)(NSArray *questions))successBlock;
+
+- (void)answersForQuestion:(PFObject *)question withSuccess:(void (^)(NSArray *))successBlock;
+
 
 @end

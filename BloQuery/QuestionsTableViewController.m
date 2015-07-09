@@ -19,7 +19,6 @@
 @property (nonatomic, strong) UILabel *composeTitle;
 @property (nonatomic, strong) UIButton *submitButton;
 @property (nonatomic, strong) UIButton *cancelButton;
-@property (nonatomic, strong) UIStoryboardSegue *answersSegue;
 
 @end
 
@@ -28,35 +27,32 @@
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
+        [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:25/255.0 green:134/255.0 blue:235/255.0 alpha:1]];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+        self.tableView.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
         self.composeTextView.returnKeyType = UIReturnKeyDone;
         self.composeTextView.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+        self.tableView.separatorColor = [UIColor clearColor];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.tableView.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:25/255.0 green:134/255.0 blue:235/255.0 alpha:1];
-    self.navigationController.navigationBar.translucent = NO;
-    
     [self.tableView registerClass:[QuestionTableViewCell class] forCellReuseIdentifier:@"questionCell"];
-    
-    self.tableView.separatorColor = [UIColor clearColor];
-    
+
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired)];
+    self.tap.cancelsTouchesInView = NO;
     
     self.addQuestionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addQuestion:)];
     self.addQuestionButton.tintColor = [UIColor whiteColor];
     
     self.navigationItem.rightBarButtonItem = self.addQuestionButton;
     [self.view addGestureRecognizer:self.tap];
-    [self prepareForSegue:self.answersSegue sender:self];
     
     [[DataSource sharedInstance] populateListOfQuestions:^(NSArray *questions) {
         [self.tableView reloadData];
@@ -97,21 +93,19 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     PFObject *questionPost = [DataSource sharedInstance].listOfQuestions[indexPath.row];
-    return [QuestionTableViewCell heightForQuestionPost:questionPost withWidth:CGRectGetWidth(self.view.frame)] + 40;
+    return [QuestionTableViewCell heightForQuestionPost:questionPost withWidth:CGRectGetWidth(self.view.frame)] + 10;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    [self performSegueWithIdentifier:@"answersSegue" sender:self];
     AnswersTableViewController *answersTVC = [[AnswersTableViewController alloc] init];
-    [self.navigationController setViewControllers:@[answersTVC] animated:YES];
+    NSArray *sortedArray = [DataSource sharedInstance].listOfQuestions;
+    sortedArray = [[sortedArray reverseObjectEnumerator] allObjects];
+    answersTVC.question = sortedArray[indexPath.row];
+    [DataSource sharedInstance].question = sortedArray[indexPath.row];
+    [self.navigationController pushViewController:answersTVC animated:YES];
 }
 
 #pragma mark - Miscellaneous
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    AnswersTableViewController *answersTVC = [[AnswersTableViewController alloc] init];
-    self.answersSegue = [[UIStoryboardSegue alloc] initWithIdentifier:@"answersSegue" source:self destination:answersTVC];
-}
 
 - (void)addQuestion:(UIBarButtonItem *)sender {
     CGSize viewSize = CGSizeMake(CGRectGetWidth(self.view.frame) * 0.7,
@@ -121,7 +115,7 @@
         [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
             
             // move scroll view to top
-            [self.tableView setContentOffset:CGPointZero animated:YES];
+            [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
             
             // align view to center and above screen
             self.composeQuestionView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - (viewSize.width / 2),
@@ -131,7 +125,7 @@
             
             // bring down to screen's center y
             self.composeQuestionView.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (viewSize.width / 2),
-                                                        CGRectGetMidY(self.view.frame) - viewSize.height * 1.23,
+                                                        CGRectGetMaxY(self.navigationController.navigationBar.frame),
                                                         viewSize.width,
                                                         viewSize.height);
             self.composeQuestionView.backgroundColor = [UIColor whiteColor];
@@ -213,7 +207,7 @@
         [self.submitButton setTitle:@"" forState:UIControlStateNormal];
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
-            self.composeQuestionView.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (viewSize.width / 2), CGRectGetMinY(self.view.frame) * -10, viewSize.width, viewSize.height);
+            self.composeQuestionView.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (viewSize.width / 2), CGRectGetMinY(self.navigationController.navigationBar.frame) - 1000, viewSize.width, viewSize.height);
             self.composeTitle.frame = CGRectMake(CGRectGetMaxX(self.cancelButton.frame), CGRectGetMaxY(self.composeQuestionView.frame), viewSize.width / 2, 0);
             self.composeTextView.frame = CGRectMake(5, CGRectGetMinY(self.view.frame) * -2, CGRectGetWidth(self.composeQuestionView.frame) - 10, CGRectGetHeight(self.composeQuestionView.frame) - CGRectGetHeight(self.composeTitle.frame) - 10);
         } completion:^(BOOL finished) {
@@ -223,7 +217,6 @@
 }
 
 - (void)submitFired:(UIButton *)sender {
-    NSLog(@"submit fired");
     self.tableView.allowsSelection = YES;
     
     CGSize viewSize = CGSizeMake(CGRectGetWidth(self.view.frame) * 0.7, CGRectGetHeight(self.view.frame) * 0.4);
@@ -243,7 +236,9 @@
     }];
     
     // submit to parse for current user
-    [[DataSource sharedInstance] postQuestion:self.composeTextView.text];
+    [[DataSource sharedInstance] postQuestion:self.composeTextView.text withSuccess:^(BOOL succeeded) {
+        [self refreshTable];
+    }];
     
     // hide compose view
     [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
@@ -279,9 +274,6 @@
     //clear out text view, hide keyboard, and refresh table
     self.composeTextView.text = @"";
     [self.composeTextView resignFirstResponder];
-    [self refreshTable];
-    
-    
 }
 
 - (void)cancelFired:(UIButton *)sender {

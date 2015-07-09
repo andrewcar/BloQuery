@@ -55,7 +55,7 @@
                                         (CGRectGetWidth(self.contentView.frame) * 0.72) + (padding * 2),
                                         answerLabelSize.height + (padding * 2));
     self.faceImageView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame) - 63,
-                                          CGRectGetMaxY(self.contentView.frame) - padding,
+                                          CGRectGetMaxY(self.answerBox.frame) - 33,
                                           53,
                                           53);
 }

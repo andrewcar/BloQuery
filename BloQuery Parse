@@ -1,0 +1,28 @@
+// Questions Table View Controller
+
+// .h
+- (void)postQuestion:(NSString *)questionText withSuccess:(void: (^)(BOOL succeeded))successBlock;
+
+ // .m
+- (void)postQuestion:(NSString *)questionText withSuccess:(void: (^)(BOOL succeeded))successBlock {
+      PFObject *question = [PFObject objectWithClassName:@"Question"];
+      question[@"text"] = questionText;
+      PFRelation *askedByRelation = [question relationForKey:@"askedBy"];
+      [askedByRelation addObject:[PFUser currentUser]];
+}
+
+
+
+// Question Table View Cell
+
+// .h
+@property (nonatomic, strong) PFObject *questionPost;
+
+
+
+// Answers Table View Controller
+
+// .h
+@property (nonatomic, strong) PFObject *question;
+// Answer Table View Cell
+// Data Source

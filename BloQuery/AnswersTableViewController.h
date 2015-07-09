@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Parse/Parse.h"
 
 @interface AnswersTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) UITextView *composeTextView;
+@property (nonatomic, strong) PFObject *question;
 
 @end
