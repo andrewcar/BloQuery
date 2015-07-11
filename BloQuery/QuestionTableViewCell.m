@@ -7,6 +7,7 @@
 //
 
 #import "QuestionTableViewCell.h"
+#import "AnswersTableViewController.h"
 #import "DataSource.h"
 
 #import <Parse/Parse.h>
@@ -37,7 +38,6 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-//        self.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
         self.backgroundColor = [UIColor clearColor];
 
         self.questionBox = [[UIView alloc] init];
@@ -79,11 +79,18 @@
         self.numberOfAnswersLabel.textColor = [UIColor whiteColor];
         self.numberOfAnswersLabel.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
         
+        self.usernameLabel = [[UILabel alloc] init];
+        self.usernameLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
+        self.usernameLabel.textAlignment = NSTextAlignmentCenter;
+        self.usernameLabel.textColor = [UIColor whiteColor];
+        self.usernameLabel.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+
         [self.contentView addSubview:self.questionBox];
         [self.contentView addSubview:self.questionLabel];
         [self addThoughtBubbles];
         [self.contentView addSubview:self.faceImageView];
         [self.contentView addSubview:self.numberOfAnswersLabel];
+        [self.contentView addSubview:self.usernameLabel];
     }
     return self;
 }
@@ -91,7 +98,18 @@
 - (void)setQuestionPost:(PFObject *)questionPost {
     _questionPost = questionPost;
     self.questionLabel.text = questionPost[@"text"];
-//    self.numberOfAnswersLabel.text = [NSString stringWithFormat:@"%ld answers", (long)[_questionPost[@"Answers"] count]];
+    [[DataSource sharedInstance] answersForQuestion:self.questionPost withSuccess:^(NSArray *answers) {
+        if (answers.count < 1) {
+            self.numberOfAnswersLabel.text = @"no answers yet";
+        } else if (answers.count == 1) {
+            self.numberOfAnswersLabel.text = @"1 answer";
+        } else {
+            self.numberOfAnswersLabel.text = [NSString stringWithFormat:@"%ld answers", (long)answers.count];
+        }
+    }];
+    [[DataSource sharedInstance] usernameForQuestion:self.questionPost withSuccess:^(NSArray *user) {
+        self.usernameLabel.text = [user lastObject][@"username"];
+    }];
 }
 
 - (void)layoutSubviews {
@@ -130,6 +148,14 @@
                                                  CGRectGetMaxY(self.questionBox.frame) + padding,
                                                  numberOfAnswersLabelSize.width + padding,
                                                  numberOfAnswersLabelSize.height + padding);
+    
+    CGSize maxSizeForUsernameLabel = CGSizeMake(CGRectGetWidth(self.questionBox.frame),
+                                                69);
+    CGSize usernameLabelSize = [self.usernameLabel sizeThatFits:maxSizeForUsernameLabel];
+    self.usernameLabel.frame = CGRectMake(CGRectGetMidX(self.questionBox.frame) - usernameLabelSize.width / 2,
+                                          CGRectGetMaxY(self.questionBox.frame) + padding,
+                                          usernameLabelSize.width + padding,
+                                          usernameLabelSize.height + padding);
 }
 
 + (CGFloat)heightForQuestionPost:(PFObject *)questionPost withWidth:(CGFloat)width {

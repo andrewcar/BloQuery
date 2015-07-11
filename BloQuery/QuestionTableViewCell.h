@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UIView *thoughtBubble1;
 @property (nonatomic, strong) UIView *thoughtBubble2;
 @property (nonatomic, strong) UIView *thoughtBubble3;
+@property (nonatomic, strong) UILabel *usernameLabel;
 
 + (CGFloat)heightForQuestionPost:(PFObject *)questionPost withWidth:(CGFloat)width;
 

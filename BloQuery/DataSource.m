@@ -49,8 +49,6 @@
     
     answer[@"text"] = answerText;
     
-
-    
     PFRelation *answerRelation = [self.question relationForKey:@"Answers"];
     [answerRelation addObject:answer];
     
@@ -86,10 +84,34 @@
     }];
 }
 
-- (void)answersForQuestion:(PFObject *)question withSuccess:(void (^)(NSArray *))successBlock {
+- (void)answersForQuestion:(PFObject *)question withSuccess:(void (^)(NSArray *answers))successBlock {
     PFRelation *answersRelation = [question relationForKey:@"Answers"];
 
     [[answersRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if (successBlock) {
+                successBlock(objects);
+            }
+        }
+    }];
+}
+
+- (void)usernameForQuestion:(PFObject *)question withSuccess:(void (^)(NSArray *user))successBlock {
+    PFRelation *askedByRelation = [question relationForKey:@"askedBy"];
+    
+    [[askedByRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if (successBlock) {
+                successBlock(objects);
+            }
+        }
+    }];
+}
+
+- (void)usernameForAnswer:(PFObject *)answer withSuccess:(void (^)(NSArray *user))successBlock {
+    PFRelation *repliedByRelation = [answer relationForKey:@"repliedBy"];
+    
+    [[repliedByRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             if (successBlock) {
                 successBlock(objects);

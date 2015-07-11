@@ -65,6 +65,12 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [self refreshTable];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -88,6 +94,7 @@
     NSArray *sortedArray = [DataSource sharedInstance].listOfQuestions;
     sortedArray = [[sortedArray reverseObjectEnumerator] allObjects];
     cell.questionPost = sortedArray[indexPath.row];
+    cell.usernameLabel = nil;
     return cell;
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		493E27221B4F0A9500AF3250 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 493E27211B4F0A9500AF3250 /* EditProfileViewController.m */; };
 		494B45341B1CC570007879C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 494B45331B1CC570007879C3 /* main.m */; };
 		494B45371B1CC570007879C3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 494B45361B1CC570007879C3 /* AppDelegate.m */; };
 		494B453D1B1CC570007879C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494B453B1B1CC570007879C3 /* Main.storyboard */; };
@@ -54,6 +55,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		493E27201B4F0A9500AF3250 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
+		493E27211B4F0A9500AF3250 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		494B452E1B1CC570007879C3 /* BloQuery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BloQuery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494B45321B1CC570007879C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494B45331B1CC570007879C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -194,6 +197,8 @@
 				494B455E1B1CD914007879C3 /* QuestionsTableViewController.m */,
 				49FEF7891B2BE61A00A188CF /* QuestionTableViewCell.h */,
 				49FEF78A1B2BE61A00A188CF /* QuestionTableViewCell.m */,
+				493E27201B4F0A9500AF3250 /* EditProfileViewController.h */,
+				493E27211B4F0A9500AF3250 /* EditProfileViewController.m */,
 				498DE0D21B3090740014A4C7 /* AnswersTableViewController.h */,
 				498DE0D31B3090740014A4C7 /* AnswersTableViewController.m */,
 				495C33561B3E3E6400975785 /* AnswerTableViewCell.h */,
@@ -360,6 +365,7 @@
 				494B455F1B1CD914007879C3 /* QuestionsTableViewController.m in Sources */,
 				494B45371B1CC570007879C3 /* AppDelegate.m in Sources */,
 				498DE0D41B3090740014A4C7 /* AnswersTableViewController.m in Sources */,
+				493E27221B4F0A9500AF3250 /* EditProfileViewController.m in Sources */,
 				49D35AC81B328C8000687594 /* DataSource.m in Sources */,
 				494B45341B1CC570007879C3 /* main.m in Sources */,
 				494B455C1B1CD542007879C3 /* LoginViewController.m in Sources */,

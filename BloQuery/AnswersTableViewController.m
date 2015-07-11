@@ -25,11 +25,12 @@
 
 @implementation AnswersTableViewController
 
+#define padding 20
+
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
-        self.tableView.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
-//        self.tableView.backgroundColor = [UIColor clearColor];
+        self.tableView.backgroundColor = [UIColor whiteColor];
         
         self.tableView.separatorColor = [UIColor clearColor];
         
@@ -37,7 +38,7 @@
         self.navigationController.navigationBar.translucent = NO;
         
         self.refreshControl = [[UIRefreshControl alloc] init];
-        self.refreshControl.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
+        self.refreshControl.backgroundColor = [UIColor whiteColor];
         [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
         
         self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired)];
@@ -103,6 +104,9 @@
         QuestionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"questionCell" forIndexPath:indexPath];
         cell.questionPost = self.question;
         cell.numberOfAnswersLabel = nil;
+        
+        cell.backgroundColor = [UIColor colorWithRed:35/255.0 green:35/255.0 blue:35/255.0 alpha:1];
+        
         cell.thoughtBubble1.frame = CGRectMake(CGRectGetMaxX(cell.questionBox.frame) + 11,
                                                CGRectGetMinY(cell.questionBox.frame) + 5,
                                                15,
@@ -119,6 +123,9 @@
                                               CGRectGetMaxY(cell.thoughtBubble3.frame) + 5,
                                               53,
                                               53);
+        [[DataSource sharedInstance] usernameForAnswer:self.answers[indexPath.row] withSuccess:^(NSArray *user) {
+            
+        }];
         return cell;
     } else {
         AnswerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"answerCell" forIndexPath:indexPath];
@@ -136,6 +143,8 @@
         return [AnswerTableViewCell heightForAnswerPost:answerPost withWidth:CGRectGetWidth(self.view.frame)] + 10;
     }
 }
+
+#pragma mark - Miscellaneous
 
 - (void)addAnswer:(UIBarButtonItem *)sender {
     CGSize viewSize = CGSizeMake(CGRectGetWidth(self.view.frame) * 0.7,
@@ -175,7 +184,7 @@
                                                                                 CGRectGetHeight(self.composeTitle.frame) - 10)];
             self.composeTextView.backgroundColor = [UIColor whiteColor];
             self.composeTextView.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
-            self.composeTextView.returnKeyType = UIReturnKeyDone;
+            self.composeTextView.returnKeyType = UIReturnKeyDefault;
             self.composeTextView.keyboardAppearance = UIKeyboardAppearanceDark;
             
             self.cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -285,7 +294,23 @@
 }
 
 - (void)cancelFired:(UIButton *)sender {
+    CGSize viewSize = CGSizeMake(CGRectGetWidth(self.view.frame) * 0.7, CGRectGetHeight(self.view.frame) * 0.4);
     
+    // hide compose view
+    [UIView animateWithDuration:0.5 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
+        self.cancelButton.frame = CGRectMake(CGRectGetMinX(self.composeAnswerView.frame), CGRectGetMaxY(self.composeAnswerView.frame), viewSize.width / 2, 0);
+        self.submitButton.frame = CGRectMake(CGRectGetMaxX(self.cancelButton.frame), CGRectGetMaxY(self.composeAnswerView.frame), viewSize.width / 2, 0);
+        [self.cancelButton setTitle:@"" forState:UIControlStateNormal];
+        [self.submitButton setTitle:@"" forState:UIControlStateNormal];
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
+            self.composeAnswerView.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (viewSize.width / 2), CGRectGetMinY(self.view.frame) - 1000, viewSize.width, viewSize.height);
+            self.composeTitle.frame = CGRectMake(CGRectGetMaxX(self.cancelButton.frame), CGRectGetMaxY(self.composeAnswerView.frame), viewSize.width / 2, 0);
+            self.composeTextView.frame = CGRectMake(5, CGRectGetMinY(self.view.frame) * -2, CGRectGetWidth(self.composeAnswerView.frame) - 10, CGRectGetHeight(self.composeAnswerView.frame) - CGRectGetHeight(self.composeTitle.frame) - 10);
+        } completion:^(BOOL finished) {
+            return;
+        }];
+    }];
 }
 
 - (void)tapFired {
@@ -310,17 +335,20 @@
 }
 
 - (void)refreshTable {
-    
-    [[DataSource sharedInstance] answersForQuestion:self.question withSuccess:^(NSArray *objects) {
-        self.answers = objects;
+    [self.tableView reloadData];
+    [[DataSource sharedInstance] answersForQuestion:self.question withSuccess:^(NSArray *answers) {
+        self.answers = answers;
         [self.tableView reloadData];
         NSString *title = @"Loading";
         NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjects:@[[UIColor whiteColor], [UIFont fontWithName:@"STHeitiSC-Medium" size:19]] forKeys:@[NSForegroundColorAttributeName, NSFontAttributeName]];
         NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attributesDictionary];
         self.refreshControl.attributedTitle = attributedTitle;
-        
-        [self.refreshControl endRefreshing];
     }];
+    AnswerTableViewCell *cell = [[AnswerTableViewCell alloc] init];
+    [[DataSource sharedInstance] usernameForAnswer:cell.answerPost withSuccess:^(NSArray *user) {
+        cell.usernameLabel.text = [user lastObject][@"username"];
+    }];
+    [self.refreshControl endRefreshing];
 }
 /*
 // Override to support conditional editing of the table view.

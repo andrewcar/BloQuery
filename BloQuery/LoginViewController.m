@@ -387,7 +387,6 @@
 - (void)logIn {
     [PFUser logInWithUsernameInBackground:self.usernameField.text password:self.passwordField.text block:^(PFUser *user, NSError *error) {
         if (user) {
-            NSLog(@"logged in successfully");
             // do stuff after successful login
             
             UINavigationController *navVC = [[UINavigationController alloc] init];

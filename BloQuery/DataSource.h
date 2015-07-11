@@ -28,7 +28,10 @@ typedef void (^NewItemCompletionBlock)(NSError *error);
 
 - (void)populateListOfQuestions:(void (^)(NSArray *questions))successBlock;
 
-- (void)answersForQuestion:(PFObject *)question withSuccess:(void (^)(NSArray *))successBlock;
+- (void)answersForQuestion:(PFObject *)question withSuccess:(void (^)(NSArray *answers))successBlock;
 
+- (void)usernameForQuestion:(PFObject *)question withSuccess:(void (^)(NSArray *user))successBlock;
+
+- (void)usernameForAnswer:(PFObject *)answer withSuccess:(void (^)(NSArray *user))successBlock;
 
 @end

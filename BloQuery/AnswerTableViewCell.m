@@ -8,6 +8,7 @@
 
 #import "AnswerTableViewCell.h"
 #import <Parse/Parse.h>
+#import "DataSource.h"
 
 @implementation AnswerTableViewCell
 
@@ -17,6 +18,8 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (self) {
+        self.backgroundColor = [UIColor clearColor];
+        
         self.answerBox = [[UIView alloc] init];
         self.answerBox.backgroundColor = [UIColor colorWithRed:25/255.0 green:134/255.0 blue:235/255.0 alpha:1];
 
@@ -30,9 +33,16 @@
         self.faceImageView = [[UIImageView alloc] init];
         self.faceImageView.image = [UIImage imageNamed:@"hmmFace.png"];
         
+        self.usernameLabel = [[UILabel alloc] init];
+        self.usernameLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
+        self.usernameLabel.textAlignment = NSTextAlignmentCenter;
+        self.usernameLabel.textColor = [UIColor whiteColor];
+        self.usernameLabel.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+        
         [self.contentView addSubview:self.answerBox];
         [self.contentView addSubview:self.answerLabel];
         [self.contentView addSubview:self.faceImageView];
+        [self.contentView addSubview:self.usernameLabel];
     }
     return self;
 }
@@ -40,6 +50,9 @@
 - (void)setAnswerPost:(PFObject *)answerPost {
     _answerPost = answerPost;
     self.answerLabel.text = answerPost[@"text"];
+    [[DataSource sharedInstance] usernameForAnswer:_answerPost withSuccess:^(NSArray *user) {
+        self.usernameLabel.text = [user lastObject][@"username"];
+    }];
 }
 
 - (void)layoutSubviews {
@@ -58,6 +71,13 @@
                                           CGRectGetMaxY(self.answerBox.frame) - 33,
                                           53,
                                           53);
+    CGSize maxSizeForUsernameLabel = CGSizeMake(CGRectGetWidth(self.answerBox.frame),
+                                                       69);
+    CGSize usernameLabelSize = [self.usernameLabel sizeThatFits:maxSizeForUsernameLabel];
+    self.usernameLabel.frame = CGRectMake(CGRectGetMidX(self.answerBox.frame) - usernameLabelSize.width / 2,
+                                                 CGRectGetMaxY(self.answerBox.frame) + padding,
+                                                 usernameLabelSize.width + padding,
+                                                 usernameLabelSize.height + padding);
 }
 
 + (CGFloat)heightForAnswerPost:(PFObject *)answerPost withWidth:(CGFloat)width {
@@ -70,7 +90,7 @@
     [layoutCell layoutIfNeeded];
     
     // Get the actual height required for the cell
-    return CGRectGetMaxY(layoutCell.faceImageView.frame);
+    return CGRectGetMaxY(layoutCell.usernameLabel.frame);
 }
 
 - (void)awakeFromNib {
