@@ -50,7 +50,7 @@
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired)];
     self.tap.cancelsTouchesInView = NO;
     
-    self.profileButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(profileButtonPressed:)];
+    self.profileButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(profileButtonPressed:)];
     self.profileButton.tintColor = [UIColor whiteColor];
     
     self.addQuestionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addQuestionPressed:)];

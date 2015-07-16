@@ -153,7 +153,7 @@
                                                 69);
     CGSize usernameLabelSize = [self.usernameLabel sizeThatFits:maxSizeForUsernameLabel];
     self.usernameLabel.frame = CGRectMake(CGRectGetMidX(self.questionBox.frame) - usernameLabelSize.width / 2,
-                                          CGRectGetMaxY(self.questionBox.frame) + padding,
+                                          CGRectGetMaxY(self.numberOfAnswersLabel.frame) + padding,
                                           usernameLabelSize.width + padding,
                                           usernameLabelSize.height + padding);
 }

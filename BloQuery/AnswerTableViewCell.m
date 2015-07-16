@@ -31,7 +31,6 @@
         self.answerLabel.numberOfLines = 0;
         
         self.faceImageView = [[UIImageView alloc] init];
-        self.faceImageView.image = [UIImage imageNamed:@"hmmFace.png"];
         
         self.usernameLabel = [[UILabel alloc] init];
         self.usernameLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];

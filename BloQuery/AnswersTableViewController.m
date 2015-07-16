@@ -105,6 +105,11 @@
         cell.questionPost = self.question;
         cell.numberOfAnswersLabel = nil;
         
+        CGSize maxSizeForUsernameLabel = CGSizeMake(CGRectGetWidth(cell.questionBox.frame),
+                                                    69);
+        CGSize usernameLabelSize = [cell.usernameLabel sizeThatFits:maxSizeForUsernameLabel];
+        cell.usernameLabel.frame = CGRectMake(CGRectGetMidX(cell.questionBox.frame) - usernameLabelSize.width / 2, CGRectGetMaxY(cell.questionBox.frame) + padding, usernameLabelSize.width, usernameLabelSize.height);
+        
         cell.backgroundColor = [UIColor colorWithRed:35/255.0 green:35/255.0 blue:35/255.0 alpha:1];
         
         cell.thoughtBubble1.frame = CGRectMake(CGRectGetMaxX(cell.questionBox.frame) + 11,
@@ -123,9 +128,6 @@
                                               CGRectGetMaxY(cell.thoughtBubble3.frame) + 5,
                                               53,
                                               53);
-        [[DataSource sharedInstance] usernameForAnswer:self.answers[indexPath.row] withSuccess:^(NSArray *user) {
-            
-        }];
         return cell;
     } else {
         AnswerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"answerCell" forIndexPath:indexPath];
