@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		493E27221B4F0A9500AF3250 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 493E27211B4F0A9500AF3250 /* EditProfileViewController.m */; };
 		494B45341B1CC570007879C3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 494B45331B1CC570007879C3 /* main.m */; };
 		494B45371B1CC570007879C3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 494B45361B1CC570007879C3 /* AppDelegate.m */; };
 		494B453D1B1CC570007879C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 494B453B1B1CC570007879C3 /* Main.storyboard */; };
@@ -23,6 +22,8 @@
 		496E2E731B3113FC00F76365 /* tinyHappyFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 496E2E6D1B3113FC00F76365 /* tinyHappyFace.png */; };
 		496E2E741B3113FC00F76365 /* xFace.png in Resources */ = {isa = PBXBuildFile; fileRef = 496E2E6E1B3113FC00F76365 /* xFace.png */; };
 		498DE0D41B3090740014A4C7 /* AnswersTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 498DE0D31B3090740014A4C7 /* AnswersTableViewController.m */; };
+		49B651A31B5182700092B996 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B651A21B5182700092B996 /* ProfileViewController.m */; };
+		49B651A71B5192C10092B996 /* FDTakeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B651A61B5192C10092B996 /* FDTakeController.m */; };
 		49C6081B1B421848002EFCE1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C6081A1B421848002EFCE1 /* AudioToolbox.framework */; };
 		49C6081D1B42185E002EFCE1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C6081C1B42185E002EFCE1 /* CFNetwork.framework */; };
 		49C6081F1B421863002EFCE1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C6081E1B421863002EFCE1 /* CoreGraphics.framework */; };
@@ -55,8 +56,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		493E27201B4F0A9500AF3250 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
-		493E27211B4F0A9500AF3250 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		494B452E1B1CC570007879C3 /* BloQuery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BloQuery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		494B45321B1CC570007879C3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		494B45331B1CC570007879C3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -82,6 +81,10 @@
 		496E2E6E1B3113FC00F76365 /* xFace.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xFace.png; sourceTree = "<group>"; };
 		498DE0D21B3090740014A4C7 /* AnswersTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswersTableViewController.h; sourceTree = "<group>"; };
 		498DE0D31B3090740014A4C7 /* AnswersTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswersTableViewController.m; sourceTree = "<group>"; };
+		49B651A11B5182700092B996 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		49B651A21B5182700092B996 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		49B651A51B5192C10092B996 /* FDTakeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDTakeController.h; sourceTree = "<group>"; };
+		49B651A61B5192C10092B996 /* FDTakeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDTakeController.m; sourceTree = "<group>"; };
 		49C6081A1B421848002EFCE1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		49C6081C1B42185E002EFCE1 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		49C6081E1B421863002EFCE1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -193,18 +196,20 @@
 				494B45361B1CC570007879C3 /* AppDelegate.m */,
 				494B455A1B1CD542007879C3 /* LoginViewController.h */,
 				494B455B1B1CD542007879C3 /* LoginViewController.m */,
+				49B651A11B5182700092B996 /* ProfileViewController.h */,
+				49B651A21B5182700092B996 /* ProfileViewController.m */,
 				494B455D1B1CD914007879C3 /* QuestionsTableViewController.h */,
 				494B455E1B1CD914007879C3 /* QuestionsTableViewController.m */,
 				49FEF7891B2BE61A00A188CF /* QuestionTableViewCell.h */,
 				49FEF78A1B2BE61A00A188CF /* QuestionTableViewCell.m */,
-				493E27201B4F0A9500AF3250 /* EditProfileViewController.h */,
-				493E27211B4F0A9500AF3250 /* EditProfileViewController.m */,
 				498DE0D21B3090740014A4C7 /* AnswersTableViewController.h */,
 				498DE0D31B3090740014A4C7 /* AnswersTableViewController.m */,
 				495C33561B3E3E6400975785 /* AnswerTableViewCell.h */,
 				495C33571B3E3E6400975785 /* AnswerTableViewCell.m */,
 				49D35AC61B328C8000687594 /* DataSource.h */,
 				49D35AC71B328C8000687594 /* DataSource.m */,
+				49B651A51B5192C10092B996 /* FDTakeController.h */,
+				49B651A61B5192C10092B996 /* FDTakeController.m */,
 				494B453B1B1CC570007879C3 /* Main.storyboard */,
 				494B453E1B1CC570007879C3 /* Images.xcassets */,
 				494B45401B1CC570007879C3 /* LaunchScreen.xib */,
@@ -216,6 +221,7 @@
 		494B45311B1CC570007879C3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				49B651A41B5185490092B996 /* Images */,
 				2CBBE738FB55F34EC76F024D /* Frameworks */,
 				496E2E5C1B310D8200F76365 /* Faces */,
 				494B45321B1CC570007879C3 /* Info.plist */,
@@ -252,6 +258,13 @@
 				496E2E6E1B3113FC00F76365 /* xFace.png */,
 			);
 			name = Faces;
+			sourceTree = "<group>";
+		};
+		49B651A41B5185490092B996 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,11 +374,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				CC1718D11B42F62300B00E94 /* AnswerTableViewCell.m in Sources */,
+				49B651A31B5182700092B996 /* ProfileViewController.m in Sources */,
 				CC1718D01B42F61D00B00E94 /* QuestionTableViewCell.m in Sources */,
 				494B455F1B1CD914007879C3 /* QuestionsTableViewController.m in Sources */,
 				494B45371B1CC570007879C3 /* AppDelegate.m in Sources */,
 				498DE0D41B3090740014A4C7 /* AnswersTableViewController.m in Sources */,
-				493E27221B4F0A9500AF3250 /* EditProfileViewController.m in Sources */,
+				49B651A71B5192C10092B996 /* FDTakeController.m in Sources */,
 				49D35AC81B328C8000687594 /* DataSource.m in Sources */,
 				494B45341B1CC570007879C3 /* main.m in Sources */,
 				494B455C1B1CD542007879C3 /* LoginViewController.m in Sources */,

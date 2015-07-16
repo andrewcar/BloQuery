@@ -22,9 +22,17 @@ typedef void (^NewItemCompletionBlock)(NSError *error);
 
 + (instancetype)sharedInstance;
 
+#pragma mark - Posting
+
 - (void)postQuestion:(NSString *)questionText withSuccess:(void (^)(BOOL succeeded))successBlock;
 
 - (void)postAnswer:(NSString *)answerText withSuccess:(void (^)(BOOL succeeded))successBlock;
+
+- (void)postDescription:(NSString *)desciptionText forUser:(PFUser *)user withSuccess:(void (^)(BOOL succeeded))successBlock;
+
+- (void)postProfilePic:(UIImage *)picture forUser:(PFUser *)user withSuccess:(void (^)(BOOL))successBlock;
+
+#pragma mark - Fetching
 
 - (void)populateListOfQuestions:(void (^)(NSArray *questions))successBlock;
 
@@ -33,5 +41,7 @@ typedef void (^NewItemCompletionBlock)(NSError *error);
 - (void)usernameForQuestion:(PFObject *)question withSuccess:(void (^)(NSArray *user))successBlock;
 
 - (void)usernameForAnswer:(PFObject *)answer withSuccess:(void (^)(NSArray *user))successBlock;
+
+- (void)profilePicForUser:(PFUser *)user withSuccess:(void (^)(NSArray *photo))successBlock;
 
 @end

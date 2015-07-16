@@ -9,11 +9,13 @@
 #import "QuestionsTableViewController.h"
 #import "QuestionTableViewCell.h"
 #import "AnswersTableViewController.h"
+#import "ProfileViewController.h"
 #import "DataSource.h"
 
 @interface QuestionsTableViewController ()
 
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
+@property (nonatomic, strong) UIBarButtonItem *profileButton;
 @property (nonatomic, strong) UIBarButtonItem *addQuestionButton;
 @property (nonatomic, strong) UIView *composeQuestionView;
 @property (nonatomic, strong) UILabel *composeTitle;
@@ -48,9 +50,13 @@
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired)];
     self.tap.cancelsTouchesInView = NO;
     
-    self.addQuestionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addQuestion:)];
+    self.profileButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(profileButtonPressed:)];
+    self.profileButton.tintColor = [UIColor whiteColor];
+    
+    self.addQuestionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addQuestionPressed:)];
     self.addQuestionButton.tintColor = [UIColor whiteColor];
     
+    self.navigationItem.leftBarButtonItem = self.profileButton;
     self.navigationItem.rightBarButtonItem = self.addQuestionButton;
     [self.view addGestureRecognizer:self.tap];
     
@@ -112,9 +118,16 @@
     [self.navigationController pushViewController:answersTVC animated:YES];
 }
 
-#pragma mark - Miscellaneous
+#pragma mark - Bar Button Actions
 
-- (void)addQuestion:(UIBarButtonItem *)sender {
+- (void)profileButtonPressed:(UIBarButtonItem *)sender {
+    sender = self.profileButton;
+    ProfileViewController *profileVC = [[ProfileViewController alloc] init];
+//    [self.navigationController presentViewController:profileVC animated:YES completion:nil];
+    [self.navigationController pushViewController:profileVC animated:YES];
+}
+
+- (void)addQuestionPressed:(UIBarButtonItem *)sender {
     CGSize viewSize = CGSizeMake(CGRectGetWidth(self.view.frame) * 0.7,
                                  CGRectGetHeight(self.view.frame) * 0.4);
 
@@ -201,6 +214,8 @@
         }];
     }
 }
+
+#pragma mark - Miscellaneous
 
 - (void)tapFired {
     [self.composeTextView resignFirstResponder];

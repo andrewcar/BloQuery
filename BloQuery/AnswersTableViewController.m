@@ -30,7 +30,7 @@
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
-        self.tableView.backgroundColor = [UIColor whiteColor];
+        self.tableView.backgroundColor = [UIColor colorWithRed:69/255.0 green:69/255.0 blue:69/255.0 alpha:1];
         
         self.tableView.separatorColor = [UIColor clearColor];
         
@@ -38,7 +38,7 @@
         self.navigationController.navigationBar.translucent = NO;
         
         self.refreshControl = [[UIRefreshControl alloc] init];
-        self.refreshControl.backgroundColor = [UIColor whiteColor];
+        self.refreshControl.backgroundColor = [UIColor colorWithRed:69/255.0 green:69/255.0 blue:69/255.0 alpha:1];
         [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
         
         self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired)];

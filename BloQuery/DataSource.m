@@ -28,6 +28,8 @@
     return self;
 }
 
+#pragma mark - Posting
+
 - (void)postQuestion:(NSString *)questionText withSuccess:(void (^)(BOOL succeeded))successBlock {
     PFObject *question = [PFObject objectWithClassName:@"Question"];
     
@@ -71,6 +73,33 @@
         }
     }];
 }
+
+- (void)postDescription:(NSString *)desciptionText forUser:(PFUser *)user withSuccess:(void (^)(BOOL))successBlock {
+    user[@"description"] = desciptionText;
+    [user saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (successBlock) {
+            successBlock(succeeded);
+        }
+    }];
+    
+}
+
+- (void)postProfilePic:(UIImage *)picture forUser:(PFUser *)user withSuccess:(void (^)(BOOL))successBlock {
+    NSData *imageData = UIImagePNGRepresentation(picture);
+    PFFile *imageFile = [PFFile fileWithData:imageData];
+
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (successBlock) {
+            successBlock(succeeded);
+            user[@"image"] = imageFile;
+            [user saveInBackground];
+            NSLog(@"posted pic successfully");
+        }
+    }];
+}
+
+#pragma mark - Fetching
+
 - (void)populateListOfQuestions:(void (^)(NSArray *questions))successBlock {
     PFQuery *questionQuery = [PFQuery queryWithClassName:@"Question"];
     
@@ -115,6 +144,18 @@
         if (!error) {
             if (successBlock) {
                 successBlock(objects);
+            }
+        }
+    }];
+}
+
+- (void)profilePicForUser:(PFUser *)user withSuccess:(void (^)(NSArray *photo))successBlock {
+    PFQuery *query = [PFQuery queryWithClassName:@"User"];
+    
+    [query findObjectsInBackgroundWithBlock:^(NSArray *pic, NSError *error) {
+        if (!error) {
+            if (successBlock) {
+                successBlock(pic);
             }
         }
     }];
