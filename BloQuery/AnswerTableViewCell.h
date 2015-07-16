@@ -15,7 +15,7 @@
 @property (nonatomic, strong) PFObject *answerPost;
 @property (nonatomic, strong) UIView *answerBox;
 @property (nonatomic, strong) UILabel *answerLabel;
-@property (nonatomic, strong) UIImageView *faceImageView;
+@property (nonatomic, strong) UIImageView *profilePicImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
 
 + (CGFloat)heightForAnswerPost:(PFObject *)answerPost withWidth:(CGFloat)width;

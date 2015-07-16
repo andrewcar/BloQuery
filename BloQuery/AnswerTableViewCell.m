@@ -30,7 +30,7 @@
         self.answerLabel.textAlignment = NSTextAlignmentLeft;
         self.answerLabel.numberOfLines = 0;
         
-        self.faceImageView = [[UIImageView alloc] init];
+        self.profilePicImageView = [[UIImageView alloc] init];
         
         self.usernameLabel = [[UILabel alloc] init];
         self.usernameLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
@@ -40,7 +40,7 @@
         
         [self.contentView addSubview:self.answerBox];
         [self.contentView addSubview:self.answerLabel];
-        [self.contentView addSubview:self.faceImageView];
+        [self.contentView addSubview:self.profilePicImageView];
         [self.contentView addSubview:self.usernameLabel];
     }
     return self;
@@ -51,6 +51,10 @@
     self.answerLabel.text = answerPost[@"text"];
     [[DataSource sharedInstance] usernameForAnswer:_answerPost withSuccess:^(NSArray *user) {
         self.usernameLabel.text = [user lastObject][@"username"];
+        PFFile *imageFile = [user lastObject][@"image"];
+        [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            self.profilePicImageView.image = [UIImage imageWithData:data];
+        }];
     }];
 }
 
@@ -66,7 +70,7 @@
                                         padding,
                                         (CGRectGetWidth(self.contentView.frame) * 0.72) + (padding * 2),
                                         answerLabelSize.height + (padding * 2));
-    self.faceImageView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame) - 63,
+    self.profilePicImageView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame) - 63,
                                           CGRectGetMaxY(self.answerBox.frame) - 33,
                                           53,
                                           53);

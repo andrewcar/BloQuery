@@ -15,7 +15,7 @@
 @property (nonatomic, strong) PFObject *questionPost;
 @property (nonatomic, strong) UIView *questionBox;
 @property (nonatomic, strong) UILabel *questionLabel;
-@property (nonatomic, strong) UIImageView *faceImageView;
+@property (nonatomic, strong) UIImageView *profilePicImageView;
 @property (nonatomic, strong) UILabel *numberOfAnswersLabel;
 @property (nonatomic, strong) UIView *thoughtBubble1;
 @property (nonatomic, strong) UIView *thoughtBubble2;

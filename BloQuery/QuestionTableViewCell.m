@@ -38,6 +38,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        [self layoutSubviews];
         self.backgroundColor = [UIColor clearColor];
 
         self.questionBox = [[UIView alloc] init];
@@ -53,9 +54,9 @@
         self.thoughtBubble1 = [[UIView alloc] init];
         self.thoughtBubble2 = [[UIView alloc] init];
         self.thoughtBubble3 = [[UIView alloc] init];
-        self.thoughtBubble1.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:27/255.0 alpha:1];
-        self.thoughtBubble2.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:27/255.0 alpha:1];
-        self.thoughtBubble3.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:27/255.0 alpha:1];
+        self.thoughtBubble1.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+        self.thoughtBubble2.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+        self.thoughtBubble3.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
         
         self.thoughtBubble1a = [[UIView alloc] init];
         self.thoughtBubble1b = [[UIView alloc] init];
@@ -70,9 +71,8 @@
         self.thoughtBubble3c = [[UIView alloc] init];
         self.thoughtBubble3d = [[UIView alloc] init];
         
-        self.faceImageView = [[UIImageView alloc] init];
-        self.faceImageView.image = [UIImage imageNamed:@"xFace.png"];
-        
+        self.profilePicImageView = [[UIImageView alloc] init];
+
         self.numberOfAnswersLabel = [[UILabel alloc] init];
         self.numberOfAnswersLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
         self.numberOfAnswersLabel.textAlignment = NSTextAlignmentCenter;
@@ -88,7 +88,7 @@
         [self.contentView addSubview:self.questionBox];
         [self.contentView addSubview:self.questionLabel];
         [self addThoughtBubbles];
-        [self.contentView addSubview:self.faceImageView];
+        [self.contentView addSubview:self.profilePicImageView];
         [self.contentView addSubview:self.numberOfAnswersLabel];
         [self.contentView addSubview:self.usernameLabel];
     }
@@ -109,6 +109,10 @@
     }];
     [[DataSource sharedInstance] usernameForQuestion:self.questionPost withSuccess:^(NSArray *user) {
         self.usernameLabel.text = [user lastObject][@"username"];
+        PFFile *imageFile = [user lastObject][@"image"];
+        [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            self.profilePicImageView.image = [UIImage imageWithData:data];
+        }];
     }];
 }
 
@@ -137,25 +141,24 @@
                                            5,
                                            5);
     [self setUpSecondaryThoughtBubbles];
-    self.faceImageView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame) - 63,
+    self.profilePicImageView.frame = CGRectMake(CGRectGetWidth(self.contentView.frame) - 63,
                                           CGRectGetMaxY(self.thoughtBubble3.frame) + padding,
                                           53,
                                           53);
-    CGSize maxSizeForNumberOfAnswersLabel = CGSizeMake(CGRectGetWidth(self.questionBox.frame),
-                                                       69);
-    CGSize numberOfAnswersLabelSize = [self.numberOfAnswersLabel sizeThatFits:maxSizeForNumberOfAnswersLabel];
-    self.numberOfAnswersLabel.frame = CGRectMake(CGRectGetMidX(self.questionBox.frame) - numberOfAnswersLabelSize.width / 2,
-                                                 CGRectGetMaxY(self.questionBox.frame) + padding,
-                                                 numberOfAnswersLabelSize.width + padding,
-                                                 numberOfAnswersLabelSize.height + padding);
-    
     CGSize maxSizeForUsernameLabel = CGSizeMake(CGRectGetWidth(self.questionBox.frame),
                                                 69);
     CGSize usernameLabelSize = [self.usernameLabel sizeThatFits:maxSizeForUsernameLabel];
     self.usernameLabel.frame = CGRectMake(CGRectGetMidX(self.questionBox.frame) - usernameLabelSize.width / 2,
-                                          CGRectGetMaxY(self.numberOfAnswersLabel.frame) + padding,
+                                          CGRectGetMaxY(self.questionBox.frame) + padding,
                                           usernameLabelSize.width + padding,
                                           usernameLabelSize.height + padding);
+    CGSize maxSizeForNumberOfAnswersLabel = CGSizeMake(CGRectGetWidth(self.questionBox.frame),
+                                                       69);
+    CGSize numberOfAnswersLabelSize = [self.numberOfAnswersLabel sizeThatFits:maxSizeForNumberOfAnswersLabel];
+    self.numberOfAnswersLabel.frame = CGRectMake(CGRectGetMidX(self.questionBox.frame) - numberOfAnswersLabelSize.width / 2,
+                                                 CGRectGetMaxY(self.usernameLabel.frame) + padding,
+                                                 numberOfAnswersLabelSize.width + padding,
+                                                 numberOfAnswersLabelSize.height + padding);
 }
 
 + (CGFloat)heightForQuestionPost:(PFObject *)questionPost withWidth:(CGFloat)width {
@@ -168,7 +171,7 @@
     [layoutCell layoutIfNeeded];
     
     // Get the actual height required for the cell
-    return CGRectGetMaxY(layoutCell.faceImageView.frame);
+    return CGRectGetMaxY(layoutCell.numberOfAnswersLabel.frame) + padding * 1.6;
 }
 
 - (void)addThoughtBubbles {
@@ -213,20 +216,20 @@
     self.thoughtBubble3c.frame = CGRectMake(CGRectGetMidX(self.thoughtBubble3.frame) - sizeForSecondaryThoughtBubble3.width / 2, CGRectGetMaxY(self.thoughtBubble3.frame) - sizeForSecondaryThoughtBubble3.height + 0.4, sizeForSecondaryThoughtBubble3.width, sizeForSecondaryThoughtBubble3.height);
     self.thoughtBubble3d.frame = CGRectMake(CGRectGetMinX(self.thoughtBubble3.frame) - 0.4, CGRectGetMidY(self.thoughtBubble3.frame) - sizeForSecondaryThoughtBubble3.height / 2, sizeForSecondaryThoughtBubble3.width, sizeForSecondaryThoughtBubble3.height);
     
-    self.thoughtBubble1a.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
-    self.thoughtBubble1b.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
-    self.thoughtBubble1c.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
-    self.thoughtBubble1d.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
+    self.thoughtBubble1a.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+    self.thoughtBubble1b.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+    self.thoughtBubble1c.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+    self.thoughtBubble1d.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
     
-    self.thoughtBubble2a.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
-    self.thoughtBubble2b.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
-    self.thoughtBubble2c.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
-    self.thoughtBubble2d.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
+    self.thoughtBubble2a.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+    self.thoughtBubble2b.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+    self.thoughtBubble2c.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+    self.thoughtBubble2d.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
     
-    self.thoughtBubble3a.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
-    self.thoughtBubble3b.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
-    self.thoughtBubble3c.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
-    self.thoughtBubble3d.backgroundColor = [UIColor colorWithRed:226/255.0 green:39/255.0 blue:68/255.0 alpha:1];
+    self.thoughtBubble3a.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+    self.thoughtBubble3b.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+    self.thoughtBubble3c.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+    self.thoughtBubble3d.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
 }
 
 - (void)awakeFromNib {

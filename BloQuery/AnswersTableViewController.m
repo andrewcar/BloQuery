@@ -30,7 +30,7 @@
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
-        self.tableView.backgroundColor = [UIColor colorWithRed:69/255.0 green:69/255.0 blue:69/255.0 alpha:1];
+        self.tableView.backgroundColor = [UIColor colorWithRed:35/255.0 green:35/255.0 blue:35/255.0 alpha:1];
         
         self.tableView.separatorColor = [UIColor clearColor];
         
@@ -124,7 +124,7 @@
                                                CGRectGetMinY(cell.thoughtBubble2.frame) + 20,
                                                5,
                                                5);
-        cell.faceImageView.frame = CGRectMake(CGRectGetWidth(cell.contentView.frame) - 63,
+        cell.profilePicImageView.frame = CGRectMake(CGRectGetWidth(cell.contentView.frame) - 63,
                                               CGRectGetMaxY(cell.thoughtBubble3.frame) + 5,
                                               53,
                                               53);
@@ -160,13 +160,13 @@
             
             // align view to center and above screen
             self.composeAnswerView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - (viewSize.width / 2),
-                                                                                CGRectGetMinY(self.view.frame) * -2,
+                                                                                CGRectGetMinY(self.view.frame) - 426,
                                                                                 viewSize.width,
                                                                                 viewSize.height)];
             
             // bring down to screen's center y
             self.composeAnswerView.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (viewSize.width / 2),
-                                                        CGRectGetMaxY(self.navigationController.navigationBar.frame) + 10,
+                                                        CGRectGetMinY(self.view.frame)+ 25,
                                                         viewSize.width,
                                                         viewSize.height);
             self.composeAnswerView.backgroundColor = [UIColor whiteColor];
@@ -175,7 +175,7 @@
                                                                           5,
                                                                           viewSize.width,
                                                                           37)];
-            self.composeTitle.text = @"Write your question";
+            self.composeTitle.text = @"Answer";
             self.composeTitle.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
             self.composeTitle.textAlignment = NSTextAlignmentCenter;
             
@@ -316,7 +316,9 @@
 }
 
 - (void)tapFired {
-    [self.composeTextView resignFirstResponder];
+    if ([self.composeTextView isFirstResponder]) {
+        [self.composeTextView resignFirstResponder];
+    }
     
     CGSize viewSize = CGSizeMake(CGRectGetWidth(self.view.frame) * 0.7, CGRectGetHeight(self.view.frame) * 0.4);
     

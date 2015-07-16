@@ -100,7 +100,7 @@
     NSArray *sortedArray = [DataSource sharedInstance].listOfQuestions;
     sortedArray = [[sortedArray reverseObjectEnumerator] allObjects];
     cell.questionPost = sortedArray[indexPath.row];
-    cell.usernameLabel = nil;
+//    cell.usernameLabel = nil;
     return cell;
 }
 
@@ -132,20 +132,20 @@
                                  CGRectGetHeight(self.view.frame) * 0.4);
 
     if (!self.composeQuestionView || self.composeQuestionView.frame.origin.y < 0) {
-        [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
+        [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
             
             // move scroll view to top
             [self.tableView setContentOffset:CGPointMake(0, -self.tableView.contentInset.top) animated:YES];
             
             // align view to center and above screen
             self.composeQuestionView = [[UIView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.frame) - (viewSize.width / 2),
-                                                                                CGRectGetMinY(self.view.frame) * -2,
+                                                                                CGRectGetMinY(self.view.frame) - 426,
                                                                                 viewSize.width,
                                                                                 viewSize.height)];
             
             // bring down to screen's center y
             self.composeQuestionView.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (viewSize.width / 2),
-                                                        CGRectGetMaxY(self.navigationController.navigationBar.frame),
+                                                        CGRectGetMinY(self.view.frame) + 25,
                                                         viewSize.width,
                                                         viewSize.height);
             self.composeQuestionView.backgroundColor = [UIColor whiteColor];
@@ -154,7 +154,7 @@
                                                                           5,
                                                                           viewSize.width,
                                                                           37)];
-            self.composeTitle.text = @"Write your question";
+            self.composeTitle.text = @"Question";
             self.composeTitle.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
             self.composeTitle.textAlignment = NSTextAlignmentCenter;
             
@@ -311,7 +311,7 @@
         [self.cancelButton setTitle:@"" forState:UIControlStateNormal];
         [self.submitButton setTitle:@"" forState:UIControlStateNormal];
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.7 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
+        [UIView animateWithDuration:0.7 delay:0.5 usingSpringWithDamping:0.5 initialSpringVelocity:0.5 options:0 animations:^{
             self.composeQuestionView.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (viewSize.width / 2), CGRectGetMinY(self.view.frame) * -10, viewSize.width, viewSize.height);
             self.composeTitle.frame = CGRectMake(CGRectGetMaxX(self.cancelButton.frame), CGRectGetMaxY(self.composeQuestionView.frame), viewSize.width / 2, 0);
             self.composeTextView.frame = CGRectMake(5, CGRectGetMinY(self.view.frame) * -2, CGRectGetWidth(self.composeQuestionView.frame) - 10, CGRectGetHeight(self.composeQuestionView.frame) - CGRectGetHeight(self.composeTitle.frame) - 10);

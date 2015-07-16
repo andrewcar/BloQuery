@@ -149,16 +149,13 @@
     }];
 }
 
-- (void)profilePicForUser:(PFUser *)user withSuccess:(void (^)(NSArray *photo))successBlock {
-    PFQuery *query = [PFQuery queryWithClassName:@"User"];
-    
-    [query findObjectsInBackgroundWithBlock:^(NSArray *pic, NSError *error) {
-        if (!error) {
-            if (successBlock) {
-                successBlock(pic);
-            }
-        }
-    }];
-}
+//- (void)profilePicForUser:(PFUser *)user withSuccess:(void (^)(NSArray *photo))successBlock {
+//    [user[@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+//        if (!error) {
+//            UIImage *picture = [UIImage imageWithData:data];
+//
+//        }
+//    }];
+//}
 
 @end
