@@ -9,6 +9,7 @@
 #import "AnswersTableViewController.h"
 #import "QuestionTableViewCell.h"
 #import "AnswerTableViewCell.h"
+#import "ProfileViewController.h"
 #import "DataSource.h"
 
 @interface AnswersTableViewController ()
@@ -38,7 +39,7 @@
         self.navigationController.navigationBar.translucent = NO;
         
         self.refreshControl = [[UIRefreshControl alloc] init];
-        self.refreshControl.backgroundColor = [UIColor colorWithRed:69/255.0 green:69/255.0 blue:69/255.0 alpha:1];
+        self.refreshControl.backgroundColor = [UIColor colorWithRed:35/255.0 green:35/255.0 blue:35/255.0 alpha:1];
         [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
         
         self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired)];
@@ -128,10 +129,13 @@
                                               CGRectGetMaxY(cell.thoughtBubble3.frame) + 5,
                                               53,
                                               53);
+        cell.delegate = self;
         return cell;
     } else {
         AnswerTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"answerCell" forIndexPath:indexPath];
         cell.answerPost = self.answers[indexPath.row];
+
+        cell.delegate = self;
         return cell;
     }
 }
@@ -139,7 +143,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         PFObject *questionPost = self.question;
-        return [QuestionTableViewCell heightForQuestionPost:questionPost withWidth:CGRectGetWidth(self.view.frame)] + 10;
+        return [QuestionTableViewCell heightForQuestionPost:questionPost withWidth:CGRectGetWidth(self.view.frame)] - 90;
     } else {
         PFObject *answerPost = self.answers[indexPath.row];
         return [AnswerTableViewCell heightForAnswerPost:answerPost withWidth:CGRectGetWidth(self.view.frame)] + 10;
@@ -340,13 +344,13 @@
 
 - (void)refreshTable {
     [self.tableView reloadData];
+    NSString *title = @"Loading";
+    NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjects:@[[UIColor whiteColor], [UIFont fontWithName:@"STHeitiSC-Medium" size:19]] forKeys:@[NSForegroundColorAttributeName, NSFontAttributeName]];
+    NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attributesDictionary];
+    self.refreshControl.attributedTitle = attributedTitle;
     [[DataSource sharedInstance] answersForQuestion:self.question withSuccess:^(NSArray *answers) {
         self.answers = answers;
         [self.tableView reloadData];
-        NSString *title = @"Loading";
-        NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjects:@[[UIColor whiteColor], [UIFont fontWithName:@"STHeitiSC-Medium" size:19]] forKeys:@[NSForegroundColorAttributeName, NSFontAttributeName]];
-        NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attributesDictionary];
-        self.refreshControl.attributedTitle = attributedTitle;
     }];
     AnswerTableViewCell *cell = [[AnswerTableViewCell alloc] init];
     [[DataSource sharedInstance] usernameForAnswer:cell.answerPost withSuccess:^(NSArray *user) {
@@ -354,6 +358,17 @@
     }];
     [self.refreshControl endRefreshing];
 }
+
+- (void)didTapProfilePicOnQuestion:(PFObject *)questionPost {
+    ProfileViewController *profileVC = [[ProfileViewController alloc] initWithQuestionPost:questionPost];
+    [self.navigationController pushViewController:profileVC animated:YES];
+}
+
+- (void)didTapProfilePicOnAnswer:(PFObject *)answerPost {
+    ProfileViewController *profileVC = [[ProfileViewController alloc] initWithAnswerPost:answerPost];
+    [self.navigationController pushViewController:profileVC animated:YES];
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

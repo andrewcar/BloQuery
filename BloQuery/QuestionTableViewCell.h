@@ -10,6 +10,12 @@
 
 @class PFObject;
 
+@protocol QuestionTableViewCellDelegate <NSObject>
+
+- (void)didTapProfilePicOnQuestion:(PFObject *)questionPost;
+
+@end
+
 @interface QuestionTableViewCell : UITableViewCell
 
 @property (nonatomic, strong) PFObject *questionPost;
@@ -21,6 +27,8 @@
 @property (nonatomic, strong) UIView *thoughtBubble2;
 @property (nonatomic, strong) UIView *thoughtBubble3;
 @property (nonatomic, strong) UILabel *usernameLabel;
+@property (nonatomic, strong) UIButton *profileButton;
+@property (nonatomic, weak) id <QuestionTableViewCellDelegate> delegate;
 
 + (CGFloat)heightForQuestionPost:(PFObject *)questionPost withWidth:(CGFloat)width;
 

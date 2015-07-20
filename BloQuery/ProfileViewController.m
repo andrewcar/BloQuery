@@ -13,12 +13,8 @@
 @interface ProfileViewController ()
 
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
-@property (nonatomic, strong) UIImageView *profilePicImageView;
 @property (nonatomic, strong) UIButton *profilePicEditButton;
-@property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) UIView *descriptionView;
-@property (nonatomic, strong) UILabel *descriptionLabel;
-@property (nonatomic, strong) UIButton *changeDescriptionButton;
 @property (nonatomic, strong) UIView *changeDescriptionView;
 @property (nonatomic, strong) UITextView *descriptionTextView;
 @property (nonatomic, strong) UILabel *descriptionTitleLabel;
@@ -29,24 +25,98 @@
 
 @implementation ProfileViewController
 
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        PFFile *imageFile = [PFUser currentUser][@"image"];
+        [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            if (!error) {
+                UIImage *image = [UIImage imageWithData:data];
+                self.profilePicImageView.image = image;
+                self.descriptionLabel.text = [PFUser currentUser][@"description"];
+            }
+        }];
+
+        self.profilePicEditButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.profilePicEditButton addTarget:self action:@selector(imagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return self;
+}
+
+- (instancetype)initWithQuestionPost:(PFObject *)questionPost {
+    self = [super init];
+    if (self) {
+        PFRelation *askedByRelation = [questionPost relationForKey:@"askedBy"];
+        [[askedByRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                PFFile *imageFile = [objects lastObject][@"image"];
+                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    if (!error) {
+                        UIImage *image = [UIImage imageWithData:data];
+                        self.profilePicImageView.image = image;
+                    }
+                }];
+
+                self.usernameLabel.text = [objects lastObject][@"username"];
+                CGSize maxSizeForUsernameLabel = CGSizeMake(CGFLOAT_MAX, 42);
+                CGSize sizeForUsernameLabel = [self.usernameLabel sizeThatFits:maxSizeForUsernameLabel];
+                self.usernameLabel.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (CGRectGetWidth(self.usernameLabel.frame) / 2),
+                                                      CGRectGetMaxY(self.profilePicImageView.frame) + 20,
+                                                      sizeForUsernameLabel.width,
+                                                      sizeForUsernameLabel.height);
+
+                self.descriptionLabel.text = [objects lastObject][@"description"];
+
+                self.profilePicEditButton = nil;
+            }
+        }];
+    }
+    return self;
+}
+
+- (instancetype)initWithAnswerPost:(PFObject *)answerPost {
+    self = [super init];
+    if (self) {
+        PFRelation *askedByRelation = [answerPost relationForKey:@"repliedBy"];
+        [[askedByRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                PFFile *imageFile = [objects lastObject][@"image"];
+                [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+                    if (!error) {
+                        UIImage *image = [UIImage imageWithData:data];
+                        self.profilePicImageView.image = image;
+                    }
+                }];
+
+                self.usernameLabel.text = [objects lastObject][@"username"];
+                CGSize maxSizeForUsernameLabel = CGSizeMake(CGFLOAT_MAX, 42);
+                CGSize sizeForUsernameLabel = [self.usernameLabel sizeThatFits:maxSizeForUsernameLabel];
+                self.usernameLabel.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (CGRectGetWidth(self.usernameLabel.frame) / 2),
+                                                      CGRectGetMaxY(self.profilePicImageView.frame) + 20,
+                                                      sizeForUsernameLabel.width,
+                                                      sizeForUsernameLabel.height);
+
+                self.descriptionLabel.text = [objects lastObject][@"description"];
+
+                self.profilePicEditButton = nil;
+            }
+        }];
+    }
+    return self;
+}
+
 - (void)takePhotoOrChooseFromLibrary {
     [self.takeController takePhotoOrChooseFromLibrary];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+//    self.view.backgroundColor = [UIColor blackColor];
+
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired)];
-    
+
     self.profilePicImageView = [[UIImageView alloc] init];
-//    [[DataSource sharedInstance] profilePicForUser:[PFUser currentUser] withSuccess:^(NSArray *photo) {
-//        if ([photo lastObject]) {
-//            NSLog(@"got the pic in the array on viewDidLoad");
-//        }
-//        self.profilePicImageView.image = [photo lastObject];
-//    }];
-    
-    self.profilePicEditButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.profilePicEditButton addTarget:self action:@selector(imagePressed:) forControlEvents:UIControlEventTouchUpInside];
     
     self.takeController = [[FDTakeController alloc] init];
     self.takeController.delegate = self;
@@ -62,13 +132,12 @@
     self.usernameLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:25];
     self.usernameLabel.textColor = [UIColor whiteColor];
     self.usernameLabel.text = [PFUser currentUser].username;
-    
+
     self.descriptionView = [[UIView alloc] init];
     
     self.descriptionLabel = [[UILabel alloc] init];
     self.descriptionLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
     self.descriptionLabel.textColor = [UIColor whiteColor];
-    self.descriptionLabel.text = [PFUser currentUser][@"description"];
     self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
     self.descriptionLabel.numberOfLines = 0;
     self.descriptionLabel.backgroundColor = [UIColor clearColor];
@@ -92,16 +161,11 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    PFFile *imageFile = [PFUser currentUser][@"image"];
-    [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-        if (!error) {
-            UIImage *image = [UIImage imageWithData:data];
-            self.profilePicImageView.image = image;
-        }
-    }];
 }
 
 - (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+
     CGSize viewSize = CGSizeMake(CGRectGetWidth(self.view.frame) * 0.7,
                                  CGRectGetHeight(self.view.frame) * 0.4);
 
@@ -109,13 +173,22 @@
                                                 100,
                                                 130,
                                                 130);
-    self.profilePicEditButton.frame = CGRectMake(CGRectGetMinX(self.profilePicImageView.frame), CGRectGetMinY(self.profilePicImageView.frame), CGRectGetWidth(self.profilePicImageView.frame), CGRectGetHeight(self.profilePicImageView.frame));
-    
+    self.profilePicEditButton.frame = CGRectMake(CGRectGetMinX(self.profilePicImageView.frame),
+                                                 CGRectGetMinY(self.profilePicImageView.frame),
+                                                 CGRectGetWidth(self.profilePicImageView.frame),
+                                                 CGRectGetHeight(self.profilePicImageView.frame));
+
     CGSize maxSizeForUsernameLabel = CGSizeMake(CGFLOAT_MAX, 42);
     CGSize sizeForUsernameLabel = [self.usernameLabel sizeThatFits:maxSizeForUsernameLabel];
-    self.usernameLabel.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (CGRectGetWidth(self.usernameLabel.frame) / 2), CGRectGetMaxY(self.profilePicImageView.frame) + 20, sizeForUsernameLabel.width, sizeForUsernameLabel.height);
+    self.usernameLabel.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (CGRectGetWidth(self.usernameLabel.frame) / 2),
+                                          CGRectGetMaxY(self.profilePicImageView.frame) + 20,
+                                          sizeForUsernameLabel.width,
+                                          sizeForUsernameLabel.height);
     
-    self.descriptionView.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (CGRectGetWidth(self.descriptionView.frame) / 2), CGRectGetMaxY(self.usernameLabel.frame) + 20, viewSize.width, viewSize.height);
+    self.descriptionView.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (CGRectGetWidth(self.descriptionView.frame) / 2),
+                                            CGRectGetMaxY(self.usernameLabel.frame) + 20,
+                                            viewSize.width,
+                                            viewSize.height);
     CGSize maxSizeForDescriptionLabel = CGSizeMake(CGRectGetWidth(self.descriptionView.frame),
                                                    self.descriptionLabel.text.length);
     CGSize sizeForDescriptionLabel = [self.descriptionView sizeThatFits:maxSizeForDescriptionLabel];
@@ -124,7 +197,10 @@
                                              sizeForDescriptionLabel.width,
                                              sizeForDescriptionLabel.height);
     
-    self.changeDescriptionButton.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (CGRectGetWidth(self.changeDescriptionButton.frame) / 2), CGRectGetMaxY(self.descriptionLabel.frame), 200, 42);
+    self.changeDescriptionButton.frame = CGRectMake(CGRectGetMidX(self.view.frame) - (CGRectGetWidth(self.changeDescriptionButton.frame) / 2),
+                                                    CGRectGetMaxY(self.descriptionLabel.frame),
+                                                    200,
+                                                    42);
 }
 
 - (void)editingSwitchToggled:(id)sender
@@ -141,12 +217,12 @@
 
 - (void)takeController:(FDTakeController *)controller didCancelAfterAttempting:(BOOL)madeAttempt
 {
-    UIAlertView *alertView;
-    if (madeAttempt)
-        alertView = [[UIAlertView alloc] initWithTitle:@"Example app" message:@"The take was cancelled after selecting media" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    else
-        alertView = [[UIAlertView alloc] initWithTitle:@"Example app" message:@"The take was cancelled without selecting media" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [alertView show];
+//    UIAlertView *alertView;
+    if (madeAttempt) {}
+//        alertView = [[UIAlertView alloc] initWithTitle:@"Example app" message:@"The take was cancelled after selecting media" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    else {}
+//        alertView = [[UIAlertView alloc] initWithTitle:@"Example app" message:@"The take was cancelled without selecting media" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//    [alertView show];
 }
 
 - (void)takeController:(FDTakeController *)controller gotPhoto:(UIImage *)photo withInfo:(NSDictionary *)info {

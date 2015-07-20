@@ -42,6 +42,4 @@ typedef void (^NewItemCompletionBlock)(NSError *error);
 
 - (void)usernameForAnswer:(PFObject *)answer withSuccess:(void (^)(NSArray *user))successBlock;
 
-- (void)profilePicForUser:(PFUser *)user withSuccess:(void (^)(NSArray *photo))successBlock;
-
 @end

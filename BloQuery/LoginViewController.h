@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-//typedef NS_ENUM(NSInteger, AccountState) {
-//    AccountStateNoAccount            = 0,
-//    AccountStateAccountCreated       = 1,
-//};
-
 @interface LoginViewController : UIViewController
 
 @end

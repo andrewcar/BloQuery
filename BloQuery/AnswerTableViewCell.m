@@ -31,6 +31,8 @@
         self.answerLabel.numberOfLines = 0;
         
         self.profilePicImageView = [[UIImageView alloc] init];
+        self.profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.profileButton addTarget:self action:@selector(profileButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         
         self.usernameLabel = [[UILabel alloc] init];
         self.usernameLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
@@ -41,6 +43,7 @@
         [self.contentView addSubview:self.answerBox];
         [self.contentView addSubview:self.answerLabel];
         [self.contentView addSubview:self.profilePicImageView];
+        [self.contentView addSubview:self.profileButton];
         [self.contentView addSubview:self.usernameLabel];
     }
     return self;
@@ -74,6 +77,8 @@
                                           CGRectGetMaxY(self.answerBox.frame) - 33,
                                           53,
                                           53);
+    self.profileButton.frame = CGRectMake(CGRectGetMinX(self.profilePicImageView.frame), CGRectGetMinY(self.profilePicImageView.frame), CGRectGetWidth(self.profilePicImageView.frame), CGRectGetHeight(self.profilePicImageView.frame));
+
     CGSize maxSizeForUsernameLabel = CGSizeMake(CGRectGetWidth(self.answerBox.frame),
                                                        69);
     CGSize usernameLabelSize = [self.usernameLabel sizeThatFits:maxSizeForUsernameLabel];
@@ -94,6 +99,12 @@
     
     // Get the actual height required for the cell
     return CGRectGetMaxY(layoutCell.usernameLabel.frame);
+}
+
+- (void)profileButtonPressed {
+    if ([self.delegate respondsToSelector:@selector(didTapProfilePicOnAnswer:)]) {
+        [self.delegate didTapProfilePicOnAnswer:self.answerPost];
+    }
 }
 
 - (void)awakeFromNib {

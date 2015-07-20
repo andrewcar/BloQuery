@@ -44,13 +44,13 @@
     [self.tableView registerClass:[QuestionTableViewCell class] forCellReuseIdentifier:@"questionCell"];
 
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
+    self.refreshControl.backgroundColor = [UIColor colorWithRed:35/255.0 green:35/255.0 blue:35/255.0 alpha:1];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired)];
     self.tap.cancelsTouchesInView = NO;
     
-    self.profileButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(profileButtonPressed:)];
+    self.profileButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(profileBarButtonPressed:)];
     self.profileButton.tintColor = [UIColor whiteColor];
     
     self.addQuestionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addQuestionPressed:)];
@@ -100,7 +100,8 @@
     NSArray *sortedArray = [DataSource sharedInstance].listOfQuestions;
     sortedArray = [[sortedArray reverseObjectEnumerator] allObjects];
     cell.questionPost = sortedArray[indexPath.row];
-//    cell.usernameLabel = nil;
+
+    cell.delegate = self;
     return cell;
 }
 
@@ -120,10 +121,9 @@
 
 #pragma mark - Bar Button Actions
 
-- (void)profileButtonPressed:(UIBarButtonItem *)sender {
+- (void)profileBarButtonPressed:(UIBarButtonItem *)sender {
     sender = self.profileButton;
     ProfileViewController *profileVC = [[ProfileViewController alloc] init];
-//    [self.navigationController presentViewController:profileVC animated:YES completion:nil];
     [self.navigationController pushViewController:profileVC animated:YES];
 }
 
@@ -333,6 +333,10 @@
         }];
 }
 
+- (void)didTapProfilePicOnQuestion:(PFObject *)questionPost {
+    ProfileViewController *profileVC = [[ProfileViewController alloc] initWithQuestionPost:questionPost];
+    [self.navigationController pushViewController:profileVC animated:YES];
+}
 
 /*
 // Override to support conditional editing of the table view.

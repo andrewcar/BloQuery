@@ -149,13 +149,4 @@
     }];
 }
 
-//- (void)profilePicForUser:(PFUser *)user withSuccess:(void (^)(NSArray *photo))successBlock {
-//    [user[@"image"] getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-//        if (!error) {
-//            UIImage *picture = [UIImage imageWithData:data];
-//
-//        }
-//    }];
-//}
-
 @end

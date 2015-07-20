@@ -8,6 +8,7 @@
 
 #import "QuestionTableViewCell.h"
 #import "AnswersTableViewController.h"
+#import "ProfileViewController.h"
 #import "DataSource.h"
 
 #import <Parse/Parse.h>
@@ -38,7 +39,6 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        [self layoutSubviews];
         self.backgroundColor = [UIColor clearColor];
 
         self.questionBox = [[UIView alloc] init];
@@ -72,25 +72,28 @@
         self.thoughtBubble3d = [[UIView alloc] init];
         
         self.profilePicImageView = [[UIImageView alloc] init];
+        self.profileButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [self.profileButton addTarget:self action:@selector(profileButtonPressed) forControlEvents:UIControlEventTouchUpInside];
 
-        self.numberOfAnswersLabel = [[UILabel alloc] init];
-        self.numberOfAnswersLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
-        self.numberOfAnswersLabel.textAlignment = NSTextAlignmentCenter;
-        self.numberOfAnswersLabel.textColor = [UIColor whiteColor];
-        self.numberOfAnswersLabel.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
-        
         self.usernameLabel = [[UILabel alloc] init];
         self.usernameLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
         self.usernameLabel.textAlignment = NSTextAlignmentCenter;
         self.usernameLabel.textColor = [UIColor whiteColor];
         self.usernameLabel.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
 
+        self.numberOfAnswersLabel = [[UILabel alloc] init];
+        self.numberOfAnswersLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
+        self.numberOfAnswersLabel.textAlignment = NSTextAlignmentCenter;
+        self.numberOfAnswersLabel.textColor = [UIColor whiteColor];
+        self.numberOfAnswersLabel.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+
         [self.contentView addSubview:self.questionBox];
         [self.contentView addSubview:self.questionLabel];
         [self addThoughtBubbles];
         [self.contentView addSubview:self.profilePicImageView];
-        [self.contentView addSubview:self.numberOfAnswersLabel];
+        [self.contentView addSubview:self.profileButton];
         [self.contentView addSubview:self.usernameLabel];
+        [self.contentView addSubview:self.numberOfAnswersLabel];
     }
     return self;
 }
@@ -98,6 +101,13 @@
 - (void)setQuestionPost:(PFObject *)questionPost {
     _questionPost = questionPost;
     self.questionLabel.text = questionPost[@"text"];
+    [[DataSource sharedInstance] usernameForQuestion:self.questionPost withSuccess:^(NSArray *user) {
+        self.usernameLabel.text = [NSString stringWithFormat:@"by %@", [user lastObject][@"username"]];
+        PFFile *imageFile = [user lastObject][@"image"];
+        [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+            self.profilePicImageView.image = [UIImage imageWithData:data];
+        }];
+    }];
     [[DataSource sharedInstance] answersForQuestion:self.questionPost withSuccess:^(NSArray *answers) {
         if (answers.count < 1) {
             self.numberOfAnswersLabel.text = @"no answers yet";
@@ -106,13 +116,6 @@
         } else {
             self.numberOfAnswersLabel.text = [NSString stringWithFormat:@"%ld answers", (long)answers.count];
         }
-    }];
-    [[DataSource sharedInstance] usernameForQuestion:self.questionPost withSuccess:^(NSArray *user) {
-        self.usernameLabel.text = [user lastObject][@"username"];
-        PFFile *imageFile = [user lastObject][@"image"];
-        [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
-            self.profilePicImageView.image = [UIImage imageWithData:data];
-        }];
     }];
 }
 
@@ -145,6 +148,8 @@
                                           CGRectGetMaxY(self.thoughtBubble3.frame) + padding,
                                           53,
                                           53);
+    self.profileButton.frame = CGRectMake(CGRectGetMinX(self.profilePicImageView.frame), CGRectGetMinY(self.profilePicImageView.frame), CGRectGetWidth(self.profilePicImageView.frame), CGRectGetHeight(self.profilePicImageView.frame));
+    
     CGSize maxSizeForUsernameLabel = CGSizeMake(CGRectGetWidth(self.questionBox.frame),
                                                 69);
     CGSize usernameLabelSize = [self.usernameLabel sizeThatFits:maxSizeForUsernameLabel];
@@ -171,7 +176,13 @@
     [layoutCell layoutIfNeeded];
     
     // Get the actual height required for the cell
-    return CGRectGetMaxY(layoutCell.numberOfAnswersLabel.frame) + padding * 1.6;
+    return CGRectGetMaxY(layoutCell.numberOfAnswersLabel.frame) + 50;
+}
+
+- (void)profileButtonPressed {
+    if ([self.delegate respondsToSelector:@selector(didTapProfilePicOnQuestion:)]) {
+        [self.delegate didTapProfilePicOnQuestion:self.questionPost];
+    }
 }
 
 - (void)addThoughtBubbles {

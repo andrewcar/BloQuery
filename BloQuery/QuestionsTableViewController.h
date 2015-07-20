@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QuestionTableViewCell.h"
 
-@interface QuestionsTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate>
+@interface QuestionsTableViewController : UITableViewController <UITableViewDataSource, UITableViewDelegate, QuestionTableViewCellDelegate>
 
 @property (nonatomic, strong) UITextView *composeTextView;
 

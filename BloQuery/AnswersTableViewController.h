@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "Parse/Parse.h"
+#import "QuestionTableViewCell.h"
+#import "AnswerTableViewCell.h"
 
-@interface AnswersTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface AnswersTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, QuestionTableViewCellDelegate, AnswerTableViewCellDelegate>
 
 @property (nonatomic, strong) UITextView *composeTextView;
 @property (nonatomic, strong) PFObject *question;
