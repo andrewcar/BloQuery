@@ -32,6 +32,8 @@ typedef void (^NewItemCompletionBlock)(NSError *error);
 
 - (void)postProfilePic:(UIImage *)picture forUser:(PFUser *)user withSuccess:(void (^)(BOOL))successBlock;
 
+- (void)toggleLikeForAnswer:(PFObject *)answerPost withSuccess:(void (^)(BOOL))successBlock;
+
 #pragma mark - Fetching
 
 - (void)populateListOfQuestions:(void (^)(NSArray *questions))successBlock;
@@ -41,5 +43,7 @@ typedef void (^NewItemCompletionBlock)(NSError *error);
 - (void)usernameForQuestion:(PFObject *)question withSuccess:(void (^)(NSArray *user))successBlock;
 
 - (void)usernameForAnswer:(PFObject *)answer withSuccess:(void (^)(NSArray *user))successBlock;
+
+- (void)likesForAnswer:(PFObject *)answer withSuccess:(void (^)(NSArray *likes))successBlock;
 
 @end

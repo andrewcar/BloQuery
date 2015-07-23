@@ -39,12 +39,20 @@
         self.usernameLabel.textAlignment = NSTextAlignmentCenter;
         self.usernameLabel.textColor = [UIColor whiteColor];
         self.usernameLabel.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
-        
+
+        self.likeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.likeButton.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
+        [self.likeButton addTarget:self action:@selector(likeButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        self.likeButton.titleLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
+        self.likeButton.titleLabel.textColor = [UIColor whiteColor];
+        self.likeButton.titleLabel.textAlignment = NSTextAlignmentCenter;
+
         [self.contentView addSubview:self.answerBox];
         [self.contentView addSubview:self.answerLabel];
         [self.contentView addSubview:self.profilePicImageView];
         [self.contentView addSubview:self.profileButton];
         [self.contentView addSubview:self.usernameLabel];
+        [self.contentView addSubview:self.likeButton];
     }
     return self;
 }
@@ -58,6 +66,19 @@
         [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
             self.profilePicImageView.image = [UIImage imageWithData:data];
         }];
+    }];
+    [[DataSource sharedInstance] likesForAnswer:self.answerPost withSuccess:^(NSArray *likes) {
+        if (likes) {
+            if (likes.count < 1) {
+                NSLog(@"no likes");
+            } else if (likes.count == 1) {
+                [self.likeButton setTitle:[NSString stringWithFormat:@"%lu like", (unsigned long)likes.count] forState:UIControlStateNormal];
+            } else {
+                [self.likeButton setTitle:[NSString stringWithFormat:@"%lu likes", (unsigned long)likes.count] forState:UIControlStateNormal];
+            }
+        } else {
+            NSLog(@"like request failed");
+        }
     }];
 }
 
@@ -77,6 +98,10 @@
                                           CGRectGetMaxY(self.answerBox.frame) - 33,
                                           53,
                                           53);
+    self.profilePicImageView.layer.cornerRadius = self.profilePicImageView.frame.size.height / 3;
+    self.profilePicImageView.layer.masksToBounds = YES;
+    self.profilePicImageView.layer.borderWidth = 0;
+
     self.profileButton.frame = CGRectMake(CGRectGetMinX(self.profilePicImageView.frame), CGRectGetMinY(self.profilePicImageView.frame), CGRectGetWidth(self.profilePicImageView.frame), CGRectGetHeight(self.profilePicImageView.frame));
 
     CGSize maxSizeForUsernameLabel = CGSizeMake(CGRectGetWidth(self.answerBox.frame),
@@ -86,6 +111,12 @@
                                                  CGRectGetMaxY(self.answerBox.frame) + padding,
                                                  usernameLabelSize.width + padding,
                                                  usernameLabelSize.height + padding);
+    CGSize maxSizeForLikeButton = CGSizeMake(CGFLOAT_MAX, 34);
+    CGSize sizeForLikeButton = [self.likeButton sizeThatFits:maxSizeForLikeButton];
+    self.likeButton.frame = CGRectMake(CGRectGetMinX(self.answerBox.frame),
+                                       CGRectGetMaxY(self.answerBox.frame) + padding,
+                                       sizeForLikeButton.width + 20,
+                                       sizeForLikeButton.height);
 }
 
 + (CGFloat)heightForAnswerPost:(PFObject *)answerPost withWidth:(CGFloat)width {
@@ -98,13 +129,30 @@
     [layoutCell layoutIfNeeded];
     
     // Get the actual height required for the cell
-    return CGRectGetMaxY(layoutCell.usernameLabel.frame);
+    return CGRectGetMaxY(layoutCell.profilePicImageView.frame) + padding;
 }
 
 - (void)profileButtonPressed {
     if ([self.delegate respondsToSelector:@selector(didTapProfilePicOnAnswer:)]) {
         [self.delegate didTapProfilePicOnAnswer:self.answerPost];
     }
+}
+
+- (void)likeButtonPressed:(UIButton *)sender {
+    [[DataSource sharedInstance] toggleLikeForAnswer:self.answerPost withSuccess:^(BOOL succeeded) {
+        [[DataSource sharedInstance] likesForAnswer:self.answerPost withSuccess:^(NSArray *likes) {
+            if (likes) {
+                if (likes.count == 1) {
+                    self.likeButton.titleLabel.text = [NSString stringWithFormat:@"%lu like", (unsigned long)likes.count];
+                } else {
+                    self.likeButton.titleLabel.text = [NSString stringWithFormat:@"%lu likes", (unsigned long)likes.count];
+                }
+            } else {
+                NSLog(@"no likes");
+            }
+        }];
+    }];
+    [self layoutSubviews];
 }
 
 - (void)awakeFromNib {

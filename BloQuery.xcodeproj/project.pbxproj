@@ -32,6 +32,8 @@
 		49C608311B421898002EFCE1 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C608301B421898002EFCE1 /* Accounts.framework */; };
 		49C608331B42189C002EFCE1 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C608321B42189C002EFCE1 /* Social.framework */; };
 		49D35AC81B328C8000687594 /* DataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D35AC71B328C8000687594 /* DataSource.m */; };
+		49D666D51B5D64F80060E866 /* LikeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D666D41B5D64F80060E866 /* LikeButton.m */; };
+		49D666D81B5D65510060E866 /* CircleSpinnerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 49D666D71B5D65510060E866 /* CircleSpinnerView.m */; };
 		49DC7EEE1B42B168000B2C21 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EE91B42B168000B2C21 /* Parse.framework */; };
 		49DC7EF21B42B168000B2C21 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49DC7EED1B42B168000B2C21 /* ParseUI.framework */; };
 		CC1718CF1B42F55500B00E94 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1718CE1B42F55500B00E94 /* Bolts.framework */; };
@@ -88,6 +90,10 @@
 		49C608321B42189C002EFCE1 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		49D35AC61B328C8000687594 /* DataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSource.h; sourceTree = "<group>"; };
 		49D35AC71B328C8000687594 /* DataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSource.m; sourceTree = "<group>"; };
+		49D666D31B5D64F80060E866 /* LikeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikeButton.h; sourceTree = "<group>"; };
+		49D666D41B5D64F80060E866 /* LikeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeButton.m; sourceTree = "<group>"; };
+		49D666D61B5D65510060E866 /* CircleSpinnerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleSpinnerView.h; sourceTree = "<group>"; };
+		49D666D71B5D65510060E866 /* CircleSpinnerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleSpinnerView.m; sourceTree = "<group>"; };
 		49DC7EE91B42B168000B2C21 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = BloQuery/Parse.framework; sourceTree = "<group>"; };
 		49DC7EEA1B42B168000B2C21 /* ParseCrashReporting.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseCrashReporting.framework; path = BloQuery/ParseCrashReporting.framework; sourceTree = "<group>"; };
 		49DC7EEB1B42B168000B2C21 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = BloQuery/ParseFacebookUtils.framework; sourceTree = "<group>"; };
@@ -196,6 +202,10 @@
 				495C33571B3E3E6400975785 /* AnswerTableViewCell.m */,
 				49D35AC61B328C8000687594 /* DataSource.h */,
 				49D35AC71B328C8000687594 /* DataSource.m */,
+				49D666D31B5D64F80060E866 /* LikeButton.h */,
+				49D666D41B5D64F80060E866 /* LikeButton.m */,
+				49D666D61B5D65510060E866 /* CircleSpinnerView.h */,
+				49D666D71B5D65510060E866 /* CircleSpinnerView.m */,
 				49B651A51B5192C10092B996 /* FDTakeController.h */,
 				49B651A61B5192C10092B996 /* FDTakeController.m */,
 				494B453B1B1CC570007879C3 /* Main.storyboard */,
@@ -350,6 +360,8 @@
 				49B651A71B5192C10092B996 /* FDTakeController.m in Sources */,
 				49D35AC81B328C8000687594 /* DataSource.m in Sources */,
 				494B45341B1CC570007879C3 /* main.m in Sources */,
+				49D666D51B5D64F80060E866 /* LikeButton.m in Sources */,
+				49D666D81B5D65510060E866 /* CircleSpinnerView.m in Sources */,
 				494B455C1B1CD542007879C3 /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

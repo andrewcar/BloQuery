@@ -31,7 +31,7 @@
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
-        self.tableView.backgroundColor = [UIColor colorWithRed:35/255.0 green:35/255.0 blue:35/255.0 alpha:1];
+        self.tableView.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
         
         self.tableView.separatorColor = [UIColor clearColor];
         
@@ -39,7 +39,7 @@
         self.navigationController.navigationBar.translucent = NO;
         
         self.refreshControl = [[UIRefreshControl alloc] init];
-        self.refreshControl.backgroundColor = [UIColor colorWithRed:35/255.0 green:35/255.0 blue:35/255.0 alpha:1];
+        self.refreshControl.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
         [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
         
         self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired)];
@@ -110,9 +110,7 @@
                                                     69);
         CGSize usernameLabelSize = [cell.usernameLabel sizeThatFits:maxSizeForUsernameLabel];
         cell.usernameLabel.frame = CGRectMake(CGRectGetMidX(cell.questionBox.frame) - usernameLabelSize.width / 2, CGRectGetMaxY(cell.questionBox.frame) + padding, usernameLabelSize.width, usernameLabelSize.height);
-        
-        cell.backgroundColor = [UIColor colorWithRed:35/255.0 green:35/255.0 blue:35/255.0 alpha:1];
-        
+                
         cell.thoughtBubble1.frame = CGRectMake(CGRectGetMaxX(cell.questionBox.frame) + 11,
                                                CGRectGetMinY(cell.questionBox.frame) + 5,
                                                15,

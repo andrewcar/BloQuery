@@ -58,7 +58,6 @@
         [self.question saveInBackgroundWithBlock:^(BOOL succeded, NSError *error) {
             if (successBlock) {
                 successBlock(succeded);
-                NSLog(@"question saved");
             }
         }];
     }];
@@ -93,7 +92,33 @@
             successBlock(succeeded);
             user[@"image"] = imageFile;
             [user saveInBackground];
-            NSLog(@"posted pic successfully");
+        }
+    }];
+}
+
+- (void)toggleLikeForAnswer:(PFObject *)answerPost withSuccess:(void (^)(BOOL))successBlock {
+    PFRelation *likesRelation = [answerPost relationForKey:@"likes"];
+    [[likesRelation query] whereKey:@"username" containsString:[PFUser currentUser][@"username"]];
+
+    [[likesRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if ([objects containsObject:[PFUser currentUser]]) {
+                [likesRelation removeObject:[PFUser currentUser]];
+
+                [answerPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (successBlock) {
+                        successBlock(succeeded);
+                    }
+                }];
+            } else {
+                [likesRelation addObject:[PFUser currentUser]];
+
+                [answerPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                    if (successBlock) {
+                        successBlock(succeeded);
+                    }
+                }];
+            }
         }
     }];
 }
@@ -141,6 +166,18 @@
     PFRelation *repliedByRelation = [answer relationForKey:@"repliedBy"];
     
     [[repliedByRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            if (successBlock) {
+                successBlock(objects);
+            }
+        }
+    }];
+}
+
+- (void)likesForAnswer:(PFObject *)answer withSuccess:(void (^)(NSArray *likes))successBlock {
+    PFRelation *likesRelation = [answer relationForKey:@"likes"];
+
+    [[likesRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             if (successBlock) {
                 successBlock(objects);

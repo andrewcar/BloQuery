@@ -117,6 +117,7 @@
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired)];
 
     self.profilePicImageView = [[UIImageView alloc] init];
+    self.profilePicImageView.backgroundColor = [UIColor colorWithRed:42/255.0 green:67/255.0 blue:96/255.0 alpha:1];
     
     self.takeController = [[FDTakeController alloc] init];
     self.takeController.delegate = self;
@@ -136,7 +137,7 @@
     self.descriptionView = [[UIView alloc] init];
     
     self.descriptionLabel = [[UILabel alloc] init];
-    self.descriptionLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
+    self.descriptionLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:25];
     self.descriptionLabel.textColor = [UIColor whiteColor];
     self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
     self.descriptionLabel.numberOfLines = 0;
@@ -145,7 +146,7 @@
     self.changeDescriptionButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.changeDescriptionButton addTarget:self action:@selector(changeDescriptionPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.changeDescriptionButton.titleLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
-    [self.changeDescriptionButton setTitle:@"edit description" forState:UIControlStateNormal];
+    [self.changeDescriptionButton setTitle:@"description" forState:UIControlStateNormal];
     self.changeDescriptionButton.titleLabel.textColor = [UIColor whiteColor];
     
     [self.view addSubview:self.profilePicImageView];
@@ -295,7 +296,7 @@
             self.submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
             self.submitButton.frame = CGRectMake(CGRectGetMaxX(self.cancelButton.frame), CGRectGetMaxY(self.changeDescriptionView.frame), viewSize.width / 2, 0);
             [self.submitButton addTarget:self action:@selector(submitFired:) forControlEvents:UIControlEventTouchUpInside];
-            self.submitButton.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:27/255.0 alpha:1];
+            self.submitButton.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
             self.submitButton.titleLabel.textColor = [UIColor whiteColor];
             self.submitButton.titleLabel.textAlignment = NSTextAlignmentCenter;
             self.submitButton.titleLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];

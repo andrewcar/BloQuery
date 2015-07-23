@@ -29,7 +29,7 @@
 - (instancetype)initWithStyle:(UITableViewStyle)style {
     self = [super initWithStyle:style];
     if (self) {
-        [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:25/255.0 green:134/255.0 blue:235/255.0 alpha:1]];
+        [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1]];
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
         self.tableView.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
         self.composeTextView.returnKeyType = UIReturnKeyDone;
@@ -44,7 +44,7 @@
     [self.tableView registerClass:[QuestionTableViewCell class] forCellReuseIdentifier:@"questionCell"];
 
     self.refreshControl = [[UIRefreshControl alloc] init];
-    self.refreshControl.backgroundColor = [UIColor colorWithRed:35/255.0 green:35/255.0 blue:35/255.0 alpha:1];
+    self.refreshControl.backgroundColor = [UIColor colorWithRed:23/255.0 green:23/255.0 blue:23/255.0 alpha:1];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
     self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapFired)];
@@ -181,7 +181,7 @@
             self.submitButton = [UIButton buttonWithType:UIButtonTypeCustom];
             self.submitButton.frame = CGRectMake(CGRectGetMaxX(self.cancelButton.frame), CGRectGetMaxY(self.composeQuestionView.frame), viewSize.width / 2, 0);
             [self.submitButton addTarget:self action:@selector(submitFired:) forControlEvents:UIControlEventTouchUpInside];
-            self.submitButton.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:27/255.0 alpha:1];
+            self.submitButton.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];
             self.submitButton.titleLabel.textColor = [UIColor whiteColor];
             self.submitButton.titleLabel.textAlignment = NSTextAlignmentCenter;
             self.submitButton.titleLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
