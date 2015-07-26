@@ -27,7 +27,7 @@
         self.backgroundColor = [UIColor clearColor];
 
         self.questionBox = [[UIView alloc] init];
-        self.questionBox.backgroundColor = [UIColor colorWithRed:25/255.0 green:134/255.0 blue:235/255.0 alpha:1];
+        self.questionBox.backgroundColor = [UIColor colorWithRed:22/255.0 green:99/255.0 blue:235/255.0 alpha:1];
         
         self.questionLabel = [[UILabel alloc] init];
         self.questionLabel.backgroundColor = [UIColor clearColor];        
@@ -119,7 +119,7 @@
                                           CGRectGetMaxY(self.thoughtBubble3.frame) + padding,
                                           53,
                                           53);
-    self.profilePicImageView.layer.cornerRadius = self.profilePicImageView.frame.size.height / 3;
+    self.profilePicImageView.layer.cornerRadius = self.profilePicImageView.frame.size.height / M_PI;
     self.profilePicImageView.layer.masksToBounds = YES;
     self.profilePicImageView.layer.borderWidth = 0;
 

@@ -13,6 +13,7 @@
 @protocol AnswerTableViewCellDelegate <NSObject>
 
 - (void)didTapProfilePicOnAnswer:(PFObject *)answerPost;
+- (void)didToggleLikeOnAnswer:(PFObject *)answerPost;
 
 @end
 

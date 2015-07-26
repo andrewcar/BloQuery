@@ -98,7 +98,7 @@
                                           CGRectGetMaxY(self.answerBox.frame) - 33,
                                           53,
                                           53);
-    self.profilePicImageView.layer.cornerRadius = self.profilePicImageView.frame.size.height / 3;
+    self.profilePicImageView.layer.cornerRadius = self.profilePicImageView.frame.size.height / M_PI;
     self.profilePicImageView.layer.masksToBounds = YES;
     self.profilePicImageView.layer.borderWidth = 0;
 
@@ -111,11 +111,11 @@
                                                  CGRectGetMaxY(self.answerBox.frame) + padding,
                                                  usernameLabelSize.width + padding,
                                                  usernameLabelSize.height + padding);
-    CGSize maxSizeForLikeButton = CGSizeMake(CGFLOAT_MAX, 34);
+    CGSize maxSizeForLikeButton = CGSizeMake(CGFLOAT_MAX, 69);
     CGSize sizeForLikeButton = [self.likeButton sizeThatFits:maxSizeForLikeButton];
     self.likeButton.frame = CGRectMake(CGRectGetMinX(self.answerBox.frame),
                                        CGRectGetMaxY(self.answerBox.frame) + padding,
-                                       sizeForLikeButton.width + 20,
+                                       sizeForLikeButton.width + padding,
                                        sizeForLikeButton.height);
 }
 
@@ -142,6 +142,9 @@
     [[DataSource sharedInstance] toggleLikeForAnswer:self.answerPost withSuccess:^(BOOL succeeded) {
         [[DataSource sharedInstance] likesForAnswer:self.answerPost withSuccess:^(NSArray *likes) {
             if (likes) {
+                if ([self.delegate respondsToSelector:@selector(didToggleLikeOnAnswer:)]) {
+                    [self.delegate didToggleLikeOnAnswer:self.answerPost];
+                }
                 if (likes.count == 1) {
                     self.likeButton.titleLabel.text = [NSString stringWithFormat:@"%lu like", (unsigned long)likes.count];
                 } else {

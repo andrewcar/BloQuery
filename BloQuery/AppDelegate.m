@@ -25,9 +25,13 @@
     
     UINavigationController *navVC = [[UINavigationController alloc] init];
     LoginViewController *loginVC = [[LoginViewController alloc] init];
-//    AnswersTableViewController *answersTVC = [[AnswersTableViewController alloc] init];
-    [navVC setViewControllers:@[loginVC] animated:YES];
-    
+    QuestionsTableViewController *questionsTVC = [[QuestionsTableViewController alloc] init];
+    if ([PFUser currentUser]) {
+        [navVC setViewControllers:@[questionsTVC] animated:YES];
+    } else {
+        [navVC setViewControllers:@[loginVC] animated:YES];
+    }
+
     navVC.navigationBarHidden = YES;
     self.window.rootViewController = navVC;
     self.window.backgroundColor = [UIColor colorWithRed:200/255.0 green:24/255.0 blue:46/255.0 alpha:1];

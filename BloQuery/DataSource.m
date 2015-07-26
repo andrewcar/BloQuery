@@ -103,6 +103,7 @@
     [[likesRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             if ([objects containsObject:[PFUser currentUser]]) {
+                [answerPost setObject:@(objects.count - 1) forKey:@"likeCount"];
                 [likesRelation removeObject:[PFUser currentUser]];
 
                 [answerPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -111,6 +112,7 @@
                     }
                 }];
             } else {
+                [answerPost setObject:@(objects.count + 1) forKey:@"likeCount"];
                 [likesRelation addObject:[PFUser currentUser]];
 
                 [answerPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -141,10 +143,12 @@
 - (void)answersForQuestion:(PFObject *)question withSuccess:(void (^)(NSArray *answers))successBlock {
     PFRelation *answersRelation = [question relationForKey:@"Answers"];
 
-    [[answersRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    // get answers for question
+    PFQuery *answersQuery = [answersRelation query];
+    [[answersQuery orderByDescending:@"likeCount"] findObjectsInBackgroundWithBlock:^(NSArray *answers, NSError *error) {
         if (!error) {
             if (successBlock) {
-                successBlock(objects);
+                successBlock(answers);
             }
         }
     }];
@@ -177,10 +181,12 @@
 - (void)likesForAnswer:(PFObject *)answer withSuccess:(void (^)(NSArray *likes))successBlock {
     PFRelation *likesRelation = [answer relationForKey:@"likes"];
 
-    [[likesRelation query] findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    [[likesRelation query] findObjectsInBackgroundWithBlock:^(NSArray *likes, NSError *error) {
         if (!error) {
             if (successBlock) {
-                successBlock(objects);
+                successBlock(likes);
+
+                
             }
         }
     }];

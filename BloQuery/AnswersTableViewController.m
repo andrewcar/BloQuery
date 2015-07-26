@@ -367,6 +367,17 @@
     [self.navigationController pushViewController:profileVC animated:YES];
 }
 
+- (void)didToggleLikeOnAnswer:(PFObject *)answerPost {
+    NSInteger oldIndex = [self.answers indexOfObject:answerPost];
+    self.answers = [self.answers sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [obj2[@"likeCount"] compare:obj1[@"likeCount"]];
+    }];
+    NSInteger newIndex = [self.answers indexOfObject:answerPost];
+    if (oldIndex != newIndex) {
+        [self.tableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:oldIndex inSection:1] toIndexPath:[NSIndexPath indexPathForRow:newIndex inSection:1]];
+    }
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {

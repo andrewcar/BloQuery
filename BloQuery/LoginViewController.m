@@ -102,7 +102,7 @@
     self.signUpButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.signUpButton.frame = CGRectMake(CGRectGetMinX(self.passwordField.frame), CGRectGetMaxY(self.passwordField.frame) + 62, buttonWidth, 42);
     [self.signUpButton addTarget:self action:@selector(signUpButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.signUpButton.backgroundColor = [UIColor colorWithRed:25/255.0 green:134/255.0 blue:235/255.0 alpha:1];
+    self.signUpButton.backgroundColor = [UIColor colorWithRed:22/255.0 green:99/255.0 blue:235/255.0 alpha:1];
     
     [self.signUpButton setTitle:@"sign up" forState:UIControlStateNormal];
     self.signUpButton.titleLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
@@ -113,7 +113,7 @@
     self.logInButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.logInButton.frame = CGRectMake(CGRectGetMaxX(self.passwordField.frame) - buttonWidth, CGRectGetMaxY(self.passwordField.frame) + 62, buttonWidth, 42);
     [self.logInButton addTarget:self action:@selector(logInButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.logInButton.backgroundColor = [UIColor colorWithRed:25/255.0 green:134/255.0 blue:235/255.0 alpha:1];
+    self.logInButton.backgroundColor = [UIColor colorWithRed:22/255.0 green:99/255.0 blue:235/255.0 alpha:1];
     [self.logInButton setTitle:@"log in" forState:UIControlStateNormal];
     self.logInButton.titleLabel.font = [UIFont fontWithName:@"STHeitiSC-Medium" size:19];
     self.logInButton.titleLabel.textColor = [UIColor whiteColor];
